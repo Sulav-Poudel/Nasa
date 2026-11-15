@@ -20,6 +20,9 @@ export interface PlayerProgress {
   completedIds: string[];
   scienceScore: number;
   unlockedDiscoveries: string[];
+  loggedMissionIds: string[];
+  resolvedTrialIds: string[];
+  litMemoryIds: string[];
 }
 
 interface GameAdventureHubProps {

@@ -17,6 +17,9 @@ const DEFAULT_PROGRESS: PlayerProgress = {
   completedIds: [],
   scienceScore: 0,
   unlockedDiscoveries: [],
+  loggedMissionIds: [],
+  resolvedTrialIds: [],
+  litMemoryIds: [],
 };
 
 function loadProgress(): PlayerProgress {
@@ -30,6 +33,9 @@ function loadProgress(): PlayerProgress {
       unlockedDiscoveries: Array.isArray(parsed.unlockedDiscoveries)
         ? parsed.unlockedDiscoveries
         : [],
+      loggedMissionIds: Array.isArray(parsed.loggedMissionIds) ? parsed.loggedMissionIds : [],
+      resolvedTrialIds: Array.isArray(parsed.resolvedTrialIds) ? parsed.resolvedTrialIds : [],
+      litMemoryIds: Array.isArray(parsed.litMemoryIds) ? parsed.litMemoryIds : [],
     };
   } catch {
     return DEFAULT_PROGRESS;
@@ -112,14 +118,52 @@ export default function App() {
           new Set([...prev.unlockedDiscoveries, ...discoveries]),
         );
         return {
+          ...prev,
           completedIds,
-          scienceScore: prev.scienceScore + (alreadyDone ? Math.round(earnedPoints * 0.25) : earnedPoints),
+          scienceScore:
+            prev.scienceScore + (alreadyDone ? Math.round(earnedPoints * 0.25) : earnedPoints),
           unlockedDiscoveries: mergedDiscoveries,
         };
       });
     },
     [],
   );
+
+  const handleLogMissionPoints = useCallback((missionId: string, points: number) => {
+    setProgress((prev) => {
+      if (prev.loggedMissionIds.includes(missionId)) return prev;
+      return {
+        ...prev,
+        loggedMissionIds: [...prev.loggedMissionIds, missionId],
+        scienceScore: prev.scienceScore + points,
+      };
+    });
+  }, []);
+
+  const handleResolveTrial = useCallback((dilemmaId: string, points: number) => {
+    setProgress((prev) => {
+      const alreadySolved = prev.resolvedTrialIds.includes(dilemmaId);
+      return {
+        ...prev,
+        resolvedTrialIds: alreadySolved
+          ? prev.resolvedTrialIds
+          : [...prev.resolvedTrialIds, dilemmaId],
+        scienceScore:
+          prev.scienceScore + (alreadySolved ? Math.round(points * 0.2) : points),
+      };
+    });
+  }, []);
+
+  const handleLightMemory = useCallback((missionId: string, points: number) => {
+    setProgress((prev) => {
+      if (prev.litMemoryIds.includes(missionId)) return prev;
+      return {
+        ...prev,
+        litMemoryIds: [...prev.litMemoryIds, missionId],
+        scienceScore: prev.scienceScore + points,
+      };
+    });
+  }, []);
 
   const handleResetProgress = useCallback(() => {
     setProgress(DEFAULT_PROGRESS);
@@ -213,9 +257,27 @@ export default function App() {
           />
         )}
         {view === 'universe' && <SolarSystemExplorer onSelectMission={openMission} />}
-        {view === 'pillars' && <PillarsExplorer onSelectMission={openMission} />}
-        {view === 'simulator' && <EthicalSimulator onSelectMission={openMission} />}
-        {view === 'legacy' && <LegacyAndWall onSelectMission={openMission} />}
+        {view === 'pillars' && (
+          <PillarsExplorer
+            loggedMissionIds={progress.loggedMissionIds}
+            onLogMissionPoints={handleLogMissionPoints}
+            onSelectMission={openMission}
+          />
+        )}
+        {view === 'simulator' && (
+          <EthicalSimulator
+            resolvedTrialIds={progress.resolvedTrialIds}
+            onResolveTrial={handleResolveTrial}
+            onSelectMission={openMission}
+          />
+        )}
+        {view === 'legacy' && (
+          <LegacyAndWall
+            litMemoryIds={progress.litMemoryIds}
+            onLightMemory={handleLightMemory}
+            onSelectMission={openMission}
+          />
+        )}
       </main>
 
       {view !== 'universe' && view !== 'adventures' && (

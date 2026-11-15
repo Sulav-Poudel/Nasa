@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp, Info, RotateCcw } from 'lucide-react';
 import { MISSIONS, PILLAR_COLORS } from '../data/archive';
 import type { MissionRecord } from '../types/archive';
 import { spaceAudio } from '../utils/audio';
+import { buildDetailedWorld, type OrbitingMoon, type WorldKind } from '../three/planetBuilders';
 
 interface SolarSystemExplorerProps {
   onSelectMission: (mission: MissionRecord) => void;
@@ -32,9 +33,9 @@ const DESTINATIONS: DestinationPreset[] = [
   {
     id: 'moon',
     label: 'The Moon',
-    subtitle: '6 missions · Apollo LRRR, Rovers, Surveyor 3, Lunar Prospector, LCROSS, GRAIL',
-    position: [11.5, 0.4, 2.2],
-    cameraOffset: [3.2, 2.2, 4.2],
+    subtitle: '6 missions · Craters, Maria basins, South Pole ice & Apollo sites',
+    position: [12.1, 0.45, 2.6],
+    cameraOffset: [1.5, 0.9, 1.9],
     missionIds: [
       'apollo-retroreflectors',
       'apollo-moon-buggies',
@@ -47,9 +48,9 @@ const DESTINATIONS: DestinationPreset[] = [
   {
     id: 'mars',
     label: 'Mars',
-    subtitle: '10 missions · Viking 1, Pathfinder, Spirit, Opportunity, Phoenix, InSight, Ingenuity, MAVEN, Curiosity, Perseverance',
+    subtitle: '10 missions · Craters, Valles Marineris, polar caps, Phobos & Deimos',
     position: [-14.5, 0, 7.5],
-    cameraOffset: [3.6, 2.4, 4.6],
+    cameraOffset: [2.4, 1.4, 3.1],
     missionIds: [
       'viking-1',
       'pathfinder-sojourner',
@@ -66,33 +67,33 @@ const DESTINATIONS: DestinationPreset[] = [
   {
     id: 'mercury',
     label: 'Mercury',
-    subtitle: 'MESSENGER · Impacted Shakespeare Basin rim (54.4° N, 149.9° W)',
+    subtitle: 'MESSENGER · Impacted cratered Shakespeare Basin rim (54.4° N, 149.9° W)',
     position: [5.5, 0, -2.5],
-    cameraOffset: [2.8, 1.8, 3.6],
+    cameraOffset: [1.9, 1.1, 2.4],
     missionIds: ['messenger-mercury'],
   },
   {
     id: 'venus',
     label: 'Venus',
-    subtitle: 'Magellan Radar Mapper · Vaporized in upper atmosphere (Oct 1994)',
+    subtitle: 'Magellan · Sulfuric cloud bands & atmospheric Windmill plunge',
     position: [-7.5, 0, -4.5],
-    cameraOffset: [3.2, 2.0, 4.0],
+    cameraOffset: [2.4, 1.4, 3.0],
     missionIds: ['magellan-venus'],
   },
   {
     id: 'asteroids',
     label: 'Asteroids & Comets',
-    subtitle: 'NEAR Shoemaker (433 Eros), Deep Impact (Tempel 1), DART (Dimorphos)',
+    subtitle: 'Didymos & Dimorphos · NEAR Shoemaker, Deep Impact, DART',
     position: [18.5, 0.5, -9.0],
-    cameraOffset: [4.2, 2.6, 5.2],
+    cameraOffset: [2.6, 1.5, 3.3],
     missionIds: ['near-shoemaker', 'deep-impact', 'dart-planetary-defense'],
   },
   {
     id: 'saturn',
     label: 'Saturn',
-    subtitle: 'Cassini · Grand Finale plunge at 9.4° N, 53° W (Sept 15, 2017)',
+    subtitle: 'Cassini · Cassini Division rings, Enceladus & Titan',
     position: [-23.5, 0, -13.0],
-    cameraOffset: [5.4, 3.2, 7.2],
+    cameraOffset: [4.5, 2.5, 6.2],
     missionIds: ['cassini-saturn'],
   },
   {
@@ -104,34 +105,6 @@ const DESTINATIONS: DestinationPreset[] = [
     missionIds: ['voyager-1', 'voyager-2', 'pioneer-10', 'new-horizons'],
   },
 ];
-
-function createPlanetTexture(baseHex: string, bandHex: string, speckled = false): THREE.CanvasTexture {
-  const canvas = document.createElement('canvas');
-  canvas.width = 256;
-  canvas.height = 128;
-  const ctx = canvas.getContext('2d');
-  if (ctx) {
-    ctx.fillStyle = baseHex;
-    ctx.fillRect(0, 0, 256, 128);
-    ctx.fillStyle = bandHex;
-    for (let y = 0; y < 128; y += 16) {
-      ctx.globalAlpha = 0.22 + ((y * 7) % 10) * 0.025;
-      ctx.fillRect(0, y, 256, 6 + (y % 5));
-    }
-    if (speckled) {
-      for (let i = 0; i < 240; i++) {
-        ctx.globalAlpha = 0.25;
-        ctx.fillStyle = i % 2 === 0 ? '#ffffff' : '#0f172a';
-        ctx.beginPath();
-        ctx.arc((i * 47) % 256, (i * 29) % 128, 1 + (i % 4), 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-  }
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
 
 const _targetPos = new THREE.Vector3();
 const _targetLook = new THREE.Vector3();
@@ -204,14 +177,14 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
 
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMappingExposure = 1.15;
     renderer.setPixelRatio(isSoftwareGl ? 1 : Math.min(window.devicePixelRatio, 2));
     renderer.setSize(host.clientWidth, host.clientHeight);
     host.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x04060b);
-    scene.fog = new THREE.FogExp2(0x04060b, 0.0085);
+    scene.fog = new THREE.FogExp2(0x04060b, 0.0072);
 
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -223,7 +196,7 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = !isSoftwareGl;
     controls.dampingFactor = 0.06;
-    controls.minDistance = 2.5;
+    controls.minDistance = 1.4;
     controls.maxDistance = 80;
     controls.maxPolarAngle = Math.PI * 0.85;
 
@@ -232,34 +205,35 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     });
 
     // Lighting
-    const sunLight = new THREE.PointLight(0xfff1d6, 85, 160, 1.3);
+    const sunLight = new THREE.PointLight(0xfff1d6, 110, 175, 1.15);
     sunLight.position.set(0, 0, 0);
     scene.add(sunLight);
 
-    const keyDir = new THREE.DirectionalLight(0xfff5e4, 0.85);
+    const keyDir = new THREE.DirectionalLight(0xfff5e4, 1.05);
     keyDir.position.set(15, 25, 12);
     scene.add(keyDir);
 
-    const hemi = new THREE.HemisphereLight(0x64748b, 0x05070b, 0.55);
+    const hemi = new THREE.HemisphereLight(0x64748b, 0x05070b, 0.6);
     scene.add(hemi);
 
     const disposables: { dispose: () => void }[] = [];
+    const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Background Stars (InstancedMesh)
     const starGeo = new THREE.SphereGeometry(0.06, 6, 6);
     const starMat = new THREE.MeshBasicMaterial({ color: 0xe2e8f0 });
-    const stars = new THREE.InstancedMesh(starGeo, starMat, 500);
+    const stars = new THREE.InstancedMesh(starGeo, starMat, 650);
     const dummy = new THREE.Object3D();
-    for (let i = 0; i < 500; i++) {
-      const r = 45 + Math.random() * 85;
+    for (let i = 0; i < 650; i++) {
+      const r = 45 + Math.random() * 90;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       dummy.position.set(
         r * Math.sin(phi) * Math.cos(theta),
-        r * Math.cos(phi) * 0.6,
+        r * Math.cos(phi) * 0.65,
         r * Math.sin(phi) * Math.sin(theta),
       );
-      dummy.scale.setScalar(0.5 + Math.random() * 1.4);
+      dummy.scale.setScalar(0.45 + Math.random() * 1.45);
       dummy.updateMatrix();
       stars.setMatrixAt(i, dummy.matrix);
     }
@@ -267,20 +241,13 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     scene.add(stars);
     disposables.push(starGeo, starMat);
 
-    // Sun + Corona
-    const sunGeo = new THREE.SphereGeometry(2.1, 32, 24);
-    const sunMat = new THREE.MeshStandardMaterial({
-      color: 0xffb347,
-      emissive: 0xff8c1a,
-      emissiveIntensity: 1.8,
-      roughness: 0.4,
-    });
-    const sun = new THREE.Mesh(sunGeo, sunMat);
-    scene.add(sun);
-    disposables.push(sunGeo, sunMat);
+    // Detailed Sun
+    const sunWorld = buildDetailedWorld('sun', 2.2, maxAnisotropy);
+    scene.add(sunWorld.group);
+    disposables.push(sunWorld);
 
     // Orbit Rings
-    const orbitRadii = [6.0, 8.7, 11.4, 16.3, 20.5, 26.8, 32.5];
+    const orbitRadii = [6.0, 8.7, 10.6, 16.3, 20.5, 26.8, 32.5];
     const orbitMat = new THREE.LineBasicMaterial({
       color: 0xffffff,
       transparent: true,
@@ -301,13 +268,13 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     // Asteroid Belt InstancedMesh
     const rockGeo = new THREE.DodecahedronGeometry(0.09, 0);
     const rockMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.85, metalness: 0.1 });
-    const rocks = new THREE.InstancedMesh(rockGeo, rockMat, 180);
-    for (let i = 0; i < 180; i++) {
-      const a = (i / 180) * Math.PI * 2 + Math.random() * 0.15;
+    const rocks = new THREE.InstancedMesh(rockGeo, rockMat, 220);
+    for (let i = 0; i < 220; i++) {
+      const a = (i / 220) * Math.PI * 2 + Math.random() * 0.15;
       const rad = 19.3 + (Math.random() - 0.5) * 2.2;
       dummy.position.set(Math.cos(a) * rad, (Math.random() - 0.5) * 0.7, Math.sin(a) * rad);
       dummy.rotation.set(Math.random() * 3, Math.random() * 3, 0);
-      dummy.scale.setScalar(0.6 + Math.random() * 1.1);
+      dummy.scale.setScalar(0.55 + Math.random() * 1.15);
       dummy.updateMatrix();
       rocks.setMatrixAt(i, dummy.matrix);
     }
@@ -315,58 +282,85 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     scene.add(rocks);
     disposables.push(rockGeo, rockMat);
 
-    // Interactive Destination Bodies & Beacons
+    // High-Detail Worlds & Orbiting Moons
     const clickables: THREE.Object3D[] = [];
-    const animatedBodies: THREE.Mesh[] = [];
-    const beacons: THREE.Mesh[] = [];
+    const rotatingBodies: { mesh: THREE.Object3D; speed: number }[] = [
+      { mesh: sunWorld.primaryMesh, speed: 0.08 },
+    ];
+    const allMoons: OrbitingMoon[] = [];
 
-    const addPlanet = (
+    const placeWorld = (
+      kind: WorldKind,
       destId: string,
       label: string,
       pos: [number, number, number],
       radius: number,
-      baseHex: string,
-      bandHex: string,
-      speckled = false,
-      hasRings = false,
+      spinSpeed = 0.16,
     ) => {
-      const tex = createPlanetTexture(baseHex, bandHex, speckled);
-      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      const geo = new THREE.SphereGeometry(radius, 32, 24);
-      const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.72, metalness: 0.08 });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.set(...pos);
-      mesh.userData = { destId, label };
-      mesh.layers.enable(1);
-      scene.add(mesh);
-      clickables.push(mesh);
-      animatedBodies.push(mesh);
-      disposables.push(tex, geo, mat);
-
-      if (hasRings) {
-        const ringGeo = new THREE.RingGeometry(radius * 1.35, radius * 2.25, 48);
-        const ringMat = new THREE.MeshStandardMaterial({
-          color: 0xe5cfa8,
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.65,
-          roughness: 0.6,
-        });
-        const ring = new THREE.Mesh(ringGeo, ringMat);
-        ring.position.set(...pos);
-        ring.rotation.x = Math.PI / 2.4;
-        scene.add(ring);
-        disposables.push(ringGeo, ringMat);
+      const world = buildDetailedWorld(kind, radius, maxAnisotropy);
+      world.group.position.set(...pos);
+      world.primaryMesh.userData = { destId, label };
+      world.primaryMesh.layers.enable(1);
+      scene.add(world.group);
+      clickables.push(world.primaryMesh);
+      rotatingBodies.push({ mesh: world.primaryMesh, speed: spinSpeed });
+      if (world.cloudMesh) {
+        rotatingBodies.push({ mesh: world.cloudMesh, speed: spinSpeed * 1.45 });
       }
+      allMoons.push(...world.moons);
+      disposables.push(world);
+      return world;
     };
 
-    addPlanet('mercury', 'Mercury · MESSENGER', [5.5, 0, -2.5], 0.52, '#8b8d94', '#5c5e66', true);
-    addPlanet('venus', 'Venus · Magellan', [-7.5, 0, -4.5], 0.85, '#d9a45b', '#b87635');
-    addPlanet('overview', 'Earth', [10.4, 0, 1.8], 0.88, '#2563eb', '#22c55e');
-    addPlanet('moon', 'The Moon · 6 Missions', [11.9, 0.4, 2.5], 0.36, '#cbd5e1', '#64748b', true);
-    addPlanet('mars', 'Mars · 10 Missions', [-14.5, 0, 7.5], 0.74, '#c2593f', '#7c2d12', true);
-    addPlanet('asteroids', 'Asteroids & Comets · 3 Missions', [18.5, 0.5, -9.0], 0.48, '#78716c', '#44403c', true);
-    addPlanet('saturn', 'Saturn · Cassini', [-23.5, 0, -13.0], 1.45, '#e2c58f', '#b8945a', false, true);
+    placeWorld('mercury', 'mercury', 'Mercury · MESSENGER', [5.5, 0, -2.5], 0.58, 0.14);
+    placeWorld('venus', 'venus', 'Venus · Magellan', [-7.5, 0, -4.5], 0.92, -0.09);
+    placeWorld('earth', 'overview', 'Earth', [10.4, 0, 1.8], 0.95, 0.22);
+    const moonWorld = placeWorld('moon', 'moon', 'The Moon · 6 Missions', [12.1, 0.45, 2.6], 0.52, 0.09);
+    const marsWorld = placeWorld('mars', 'mars', 'Mars · 10 Missions', [-14.5, 0, 7.5], 0.86, 0.2);
+    placeWorld('asteroid', 'asteroids', 'Didymos & Dimorphos · 3 Missions', [18.5, 0.5, -9.0], 0.54, 0.28);
+    placeWorld('saturn', 'saturn', 'Saturn · Cassini & Moons', [-23.5, 0, -13.0], 1.55, 0.24);
+
+    // Lunar Surface Mission Pins (attached to rotating Moon sphere!)
+    const pinGeo = new THREE.SphereGeometry(0.055, 10, 10);
+    disposables.push(pinGeo);
+    const lunarPins: [string, [number, number, number]][] = [
+      ['apollo-retroreflectors', [0.46, 0.08, 0.25]],
+      ['apollo-moon-buggies', [0.35, 0.24, 0.32]],
+      ['lcross', [0.08, -0.5, 0.14]],
+      ['grail', [-0.15, 0.49, 0.12]],
+    ];
+    lunarPins.forEach(([mId, localPos]) => {
+      const m = MISSIONS.find((x) => x.id === mId);
+      const color = m ? PILLAR_COLORS[m.disposalReason] : '#E5B880';
+      const pMat = new THREE.MeshBasicMaterial({ color });
+      disposables.push(pMat);
+      const pin = new THREE.Mesh(pinGeo, pMat);
+      pin.position.set(...localPos);
+      pin.userData = { destId: 'moon', missionId: mId, label: m?.name ?? mId };
+      pin.layers.enable(1);
+      moonWorld.primaryMesh.add(pin);
+      clickables.push(pin);
+    });
+
+    // Mars Surface Mission Pins
+    const marsPins: [string, [number, number, number]][] = [
+      ['opportunity-mer-b', [0.72, -0.1, 0.48]],
+      ['curiosity-msl', [-0.62, -0.12, 0.6]],
+      ['perseverance-m2020', [0.45, 0.28, -0.68]],
+      ['insight-lander', [-0.35, 0.15, -0.78]],
+    ];
+    marsPins.forEach(([mId, localPos]) => {
+      const m = MISSIONS.find((x) => x.id === mId);
+      const color = m ? PILLAR_COLORS[m.disposalReason] : '#D8B4FE';
+      const pMat = new THREE.MeshBasicMaterial({ color });
+      disposables.push(pMat);
+      const pin = new THREE.Mesh(pinGeo, pMat);
+      pin.position.set(...localPos);
+      pin.userData = { destId: 'mars', missionId: mId, label: m?.name ?? mId };
+      pin.layers.enable(1);
+      marsWorld.primaryMesh.add(pin);
+      clickables.push(pin);
+    });
 
     // Interstellar Deep Space Beacon Cluster
     const interstellarCoords: [string, [number, number, number]][] = [
@@ -377,6 +371,7 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
     ];
     const beaconGeo = new THREE.OctahedronGeometry(0.32, 0);
     disposables.push(beaconGeo);
+    const beacons: THREE.Mesh[] = [];
     interstellarCoords.forEach(([mId, pos]) => {
       const m = MISSIONS.find((x) => x.id === mId);
       const color = m ? PILLAR_COLORS[m.disposalReason] : '#D8B4FE';
@@ -473,12 +468,23 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
 
     const tick = () => {
       const dt = Math.min(clock.getDelta(), 0.1);
-      animatedBodies.forEach((b) => {
-        b.rotation.y += dt * 0.16;
+      const elapsed = clock.elapsedTime;
+
+      rotatingBodies.forEach((b) => {
+        b.mesh.rotation.y += dt * b.speed;
+      });
+      allMoons.forEach((moon) => {
+        const ang = elapsed * moon.speed + moon.phase;
+        moon.mesh.position.set(
+          Math.cos(ang) * moon.radius,
+          Math.sin(ang) * moon.radius * moon.inclination,
+          Math.sin(ang) * moon.radius,
+        );
+        moon.mesh.rotation.y += dt * 0.4;
       });
       beacons.forEach((b, idx) => {
         b.rotation.y += dt * 0.8;
-        b.position.y += Math.sin(clock.elapsedTime * 1.4 + idx) * 0.0015;
+        b.position.y += Math.sin(elapsed * 1.4 + idx) * 0.0015;
       });
 
       if (cameraGoalRef.current.active) {
@@ -536,7 +542,7 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
       <div className="pointer-events-none absolute top-5 left-5 right-5 flex flex-wrap items-start justify-between gap-4 z-10">
         <div className="pointer-events-auto max-w-md p-4 rounded-md bg-[#080B12]/92 border border-white/10">
           <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
-            <span>The Abandoned Universe</span>
+            <span>Star Map</span>
             <span aria-hidden="true">·</span>
             <span>{visibleMissions.length} missions in view</span>
           </div>
@@ -547,12 +553,12 @@ export const SolarSystemExplorer: React.FC<SolarSystemExplorerProps> = ({ onSele
           <p className="mt-2.5 flex items-start gap-1.5 text-[11px] font-mono text-amber-300/90">
             <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
             <span>
-              Illustrative Heliocentric Schematic: distances and deep-space markers are visually compressed, not ephemeris-exact.
+              Click any planet, Moon crater pin, or deep-space beacon to inspect worlds & dossiers.
             </span>
           </p>
         </div>
 
-        {/* Selected Region Mission List (Right drawer on large screens, compact stack) */}
+        {/* Selected Region Mission List */}
         <div className="pointer-events-auto w-full sm:w-80 max-h-[52vh] overflow-y-auto rounded-md bg-[#080B12]/92 border border-white/10 p-3">
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
             <span className="font-mono text-[11px] text-slate-400">

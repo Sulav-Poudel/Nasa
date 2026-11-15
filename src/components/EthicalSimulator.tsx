@@ -1,120 +1,248 @@
 import React, { useState } from 'react';
-import { CheckCircle2, ExternalLink, FileText, RotateCcw } from 'lucide-react';
-import { ETHICAL_DILEMMAS } from '../data/dilemmas';
+import {
+  CheckCircle2,
+  ExternalLink,
+  FileText,
+  Flame,
+  FlaskConical,
+  Landmark,
+  Orbit,
+  RotateCcw,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Wind,
+} from 'lucide-react';
+import { ETHICAL_DILEMMAS, type ResourceKey } from '../data/dilemmas';
 import { getMissionById } from '../data/archive';
 import type { MissionRecord } from '../types/archive';
 import { spaceAudio } from '../utils/audio';
 
 interface EthicalSimulatorProps {
+  resolvedTrialIds: string[];
+  onResolveTrial: (dilemmaId: string, points: number) => void;
   onSelectMission: (mission: MissionRecord) => void;
 }
 
-export const EthicalSimulator: React.FC<EthicalSimulatorProps> = ({ onSelectMission }) => {
-  const [selectedDilemmaIdx, setSelectedDilemmaIdx] = useState(0);
-  const [choices, setChoices] = useState<Record<string, string>>({});
+const SCENARIO_ICONS = [Orbit, Landmark, Target, Wind];
 
-  const dilemma = ETHICAL_DILEMMAS[selectedDilemmaIdx];
+const METER_CONFIG: {
+  key: ResourceKey;
+  label: string;
+  color: string;
+  Icon: React.ComponentType<{ className?: string }>;
+}[] = [
+  { key: 'fuel', label: 'Fuel', color: '#E5B880', Icon: Flame },
+  { key: 'science', label: 'Science', color: '#7DD3FC', Icon: FlaskConical },
+  { key: 'safety', label: 'Bio-Safe', color: '#86EFAC', Icon: ShieldCheck },
+  { key: 'heritage', label: 'Heritage', color: '#D8B4FE', Icon: Landmark },
+];
+
+export const EthicalSimulator: React.FC<EthicalSimulatorProps> = ({
+  resolvedTrialIds,
+  onResolveTrial,
+  onSelectMission,
+}) => {
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [choices, setChoices] = useState<Record<string, string>>({});
+  const [hoveredOptId, setHoveredOptId] = useState<string | null>(null);
+
+  const dilemma = ETHICAL_DILEMMAS[selectedIdx];
   const chosenOptionId = choices[dilemma.id];
+  const activeOption =
+    dilemma.options.find((o) => o.id === (hoveredOptId ?? chosenOptionId)) ?? null;
+  const confirmedOption = dilemma.options.find((o) => o.id === chosenOptionId) ?? null;
   const linkedMission = getMissionById(dilemma.missionId);
 
-  const chooseOption = (optionId: string) => {
-    setChoices((prev) => ({ ...prev, [dilemma.id]: optionId }));
-    spaceAudio.playTelemetryPing(587.33);
+  const chooseOption = (optId: string, bonusPoints: number, isHistorical: boolean) => {
+    setChoices((prev) => ({ ...prev, [dilemma.id]: optId }));
+    onResolveTrial(dilemma.id, bonusPoints);
+    if (isHistorical) {
+      spaceAudio.playTelemetryPing(698.46);
+    } else {
+      spaceAudio.playTelemetryPing(466.16);
+    }
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-5 sm:px-8 py-10 space-y-8">
-      <header className="max-w-3xl pb-6 border-b border-white/10">
-        <p className="font-mono text-xs text-slate-400">
-          The Last Decision · Interactive Ethical Simulation
-        </p>
-        <h1 className="mt-2 text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-          In the Mission Director’s Chair
-        </h1>
-        <p className="mt-3 text-base text-slate-300 leading-relaxed">
-          Weigh fuel, alien ocean protection, cultural heritage, and scientific return in four historical end-of-mission dilemmas—then compare your judgment against NASA’s real archival record.
-        </p>
-      </header>
+    <section className="max-w-6xl mx-auto px-5 sm:px-8 py-6 sm:py-8 space-y-6">
+      {/* Compact Icon Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-md bg-[#091512] border border-[#34D399]/50 flex items-center justify-center text-[#6EE7B7]">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+              Director Trials
+            </h1>
+            <div className="font-mono text-xs text-slate-400">
+              Visual Command Cards · Resource Meters · Bonus Science Points
+            </div>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="flex items-center gap-3 font-mono text-xs">
+          <span className="text-slate-400">TRIALS CLEARED:</span>
+          <span className="text-[#6EE7B7] font-bold tabular-nums">
+            {resolvedTrialIds.length} / {ETHICAL_DILEMMAS.length}
+          </span>
+        </div>
+      </div>
+
+      {/* Visual Scenario Switcher Tiles */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {ETHICAL_DILEMMAS.map((d, idx) => {
-          const active = idx === selectedDilemmaIdx;
-          const resolved = Boolean(choices[d.id]);
+          const Icon = SCENARIO_ICONS[idx % SCENARIO_ICONS.length];
+          const active = idx === selectedIdx;
+          const solved = resolvedTrialIds.includes(d.id) || Boolean(choices[d.id]);
           return (
             <button
               key={d.id}
               type="button"
-              onClick={() => setSelectedDilemmaIdx(idx)}
-              className={`text-left p-4 rounded-md border transition-colors cursor-pointer ${
+              onClick={() => {
+                setSelectedIdx(idx);
+                setHoveredOptId(null);
+                spaceAudio.playTelemetryPing(520);
+              }}
+              className={`text-left p-3.5 rounded-md border-2 transition-all cursor-pointer ${
                 active
-                  ? 'bg-[#111827] border-white/40'
-                  : 'bg-[#090D16] border-white/10 hover:border-white/25'
+                  ? 'bg-[#121A2C] border-[#FCD34D]'
+                  : solved
+                    ? 'bg-[#091512] border-[#34D399]/50 hover:border-[#34D399]'
+                    : 'bg-[#090D16] border-white/10 hover:border-white/30'
               }`}
             >
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                <span>Scenario 0{idx + 1}</span>
-                {resolved && <CheckCircle2 className="w-3.5 h-3.5 text-[#86EFAC]" />}
+              <div className="flex items-center justify-between">
+                <Icon className="w-4 h-4 text-[#7DD3FC]" />
+                {solved && <CheckCircle2 className="w-4 h-4 text-[#6EE7B7]" />}
               </div>
-              <div className="mt-1.5 text-sm font-semibold text-white line-clamp-2">
-                {d.scenarioTitle}
+              <div className="mt-2 font-mono text-[11px] text-slate-400">{d.roleTitle}</div>
+              <div className="mt-0.5 text-sm font-semibold text-white truncate">
+                {d.scenarioTitle.split(':')[0]}
               </div>
             </button>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-7 p-6 sm:p-8 rounded-md bg-[#090D16] border border-white/10 space-y-6">
+      {/* Main Console: Resource Meters + Visual Icon Command Cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left: 4 Live Resource Meters + Minimal Briefing */}
+        <div className="lg:col-span-5 p-5 sm:p-6 rounded-md bg-[#090D16] border border-white/15 space-y-5">
           <div>
-            <div className="font-mono text-xs text-[#86EFAC]">{dilemma.roleTitle}</div>
-            <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-white">
-              {dilemma.scenarioTitle}
-            </h2>
-            <p className="mt-4 text-sm sm:text-base text-slate-200 leading-relaxed">
-              {dilemma.briefing}
-            </p>
-            <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-              <strong className="text-white">Stakes:</strong> {dilemma.scientificStakes}
-            </p>
+            <div className="font-mono text-xs text-[#FCD34D]">{dilemma.roleTitle}</div>
+            <h2 className="mt-1 text-xl font-semibold text-white">{dilemma.scenarioTitle}</h2>
+            <p className="mt-1.5 text-xs text-slate-300">{dilemma.stakesLine}</p>
           </div>
 
-          <div className="space-y-3 pt-4 border-t border-white/10">
-            <div className="font-mono text-xs text-slate-400">Select Your Directive</div>
+          <div className="space-y-3 pt-3 border-t border-white/10">
+            <div className="font-mono text-[11px] text-slate-400">MISSION RESOURCE METERS</div>
+            {METER_CONFIG.map(({ key, label, color, Icon }) => {
+              const baseVal = dilemma.baseMeters[key];
+              const delta = activeOption ? activeOption.deltas[key] : 0;
+              const finalVal = Math.max(0, Math.min(100, baseVal + delta));
+              return (
+                <div key={key} className="space-y-1">
+                  <div className="flex items-center justify-between font-mono text-xs">
+                    <span className="inline-flex items-center gap-1.5 text-slate-200">
+                      <span style={{ color }}>
+                        <Icon className="w-3.5 h-3.5" />
+                      </span>
+                      <span>{label}</span>
+                    </span>
+                    <div className="flex items-center gap-2 tabular-nums">
+                      {delta !== 0 && (
+                        <span
+                          className={`text-[11px] font-bold ${
+                            delta > 0 ? 'text-[#6EE7B7]' : 'text-amber-300'
+                          }`}
+                        >
+                          {delta > 0 ? `+${delta}` : delta}
+                        </span>
+                      )}
+                      <span className="text-white font-semibold">{finalVal}%</span>
+                    </div>
+                  </div>
+                  <div className="h-2.5 rounded-xs bg-[#05070B] border border-white/10 overflow-hidden">
+                    <div
+                      className="h-full transition-all duration-300"
+                      style={{ width: `${finalVal}%`, backgroundColor: color }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right: Visual Icon Command Cards & Instant Reward Outcome */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="grid grid-cols-1 gap-3">
             {dilemma.options.map((opt) => {
               const isSelected = chosenOptionId === opt.id;
               return (
                 <button
                   key={opt.id}
                   type="button"
-                  onClick={() => chooseOption(opt.id)}
-                  className={`w-full text-left p-4 rounded-md border transition-colors cursor-pointer ${
+                  onMouseEnter={() => setHoveredOptId(opt.id)}
+                  onMouseLeave={() => setHoveredOptId(null)}
+                  onClick={() => chooseOption(opt.id, opt.bonusPoints, opt.isHistoricalChoice)}
+                  className={`text-left p-4 rounded-md border-2 transition-all cursor-pointer flex items-center justify-between gap-4 ${
                     isSelected
-                      ? 'bg-[#131C2E] border-white/45'
-                      : 'bg-[#05070B] border-white/10 hover:border-white/25'
+                      ? 'bg-[#12221C] border-[#34D399]'
+                      : 'bg-[#090D16] border-white/15 hover:border-[#FCD34D]'
                   }`}
                 >
-                  <div className="text-sm font-semibold text-white">{opt.label}</div>
-                  <p className="mt-1 text-xs text-slate-300 leading-relaxed">
-                    {opt.consequenceSummary}
-                  </p>
+                  <div className="min-w-0 space-y-1">
+                    <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+                      <span className="text-[#7DD3FC] font-bold">{opt.badgeTag}</span>
+                      <span className="text-slate-500">·</span>
+                      <span className="text-[#FCD34D] inline-flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" />
+                        <span>+{opt.bonusPoints} PTS</span>
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold text-white">{opt.label}</div>
+                    <div className="text-xs text-slate-300">{opt.shortAction}</div>
+                  </div>
+
+                  {/* Quick Delta Preview Icons */}
+                  <div className="hidden sm:grid grid-cols-2 gap-1.5 shrink-0 font-mono text-[10px] tabular-nums">
+                    {METER_CONFIG.map(({ key, Icon, color }) => {
+                      const d = opt.deltas[key];
+                      return (
+                        <div
+                          key={key}
+                          className="px-2 py-1 rounded bg-[#05070B] border border-white/10 flex items-center gap-1"
+                        >
+                          <span style={{ color }}>
+                            <Icon className="w-3 h-3" />
+                          </span>
+                          <span className={d >= 0 ? 'text-[#6EE7B7]' : 'text-amber-300'}>
+                            {d > 0 ? `+${d}` : d}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </button>
               );
             })}
           </div>
-        </div>
 
-        <div className="lg:col-span-5 p-6 sm:p-8 rounded-md bg-[#090D16] border border-white/10 space-y-5">
-          {!chosenOptionId ? (
-            <div className="py-12 text-center space-y-3">
-              <p className="font-mono text-xs text-slate-400">Awaiting Decision</p>
-              <p className="text-sm text-slate-300 max-w-xs mx-auto leading-relaxed">
-                Choose one of the directives on the left to reveal what happened in the historical mission and the scientific ethics behind it.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-5">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-[#86EFAC]">Historical Outcome Revealed</span>
+          {/* Outcome Strip */}
+          {confirmedOption && (
+            <div className="p-5 rounded-md bg-[#091512] border-2 border-[#34D399] space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#6EE7B7]">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>
+                    {confirmedOption.isHistoricalChoice
+                      ? `HISTORICAL NASA CALL · +${confirmedOption.bonusPoints} PTS`
+                      : `ALTERNATIVE PATH · +${confirmedOption.bonusPoints} PTS`}
+                  </span>
+                </div>
                 <button
                   type="button"
                   onClick={() =>
@@ -124,54 +252,34 @@ export const EthicalSimulator: React.FC<EthicalSimulatorProps> = ({ onSelectMiss
                       return next;
                     })
                   }
-                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-white cursor-pointer"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-slate-300 hover:text-white cursor-pointer"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>Reset</span>
+                  <span>Retry</span>
                 </button>
               </div>
 
-              <div className="p-4 rounded bg-[#05070B] border border-white/10 text-xs text-slate-200 leading-relaxed">
-                {dilemma.options.find((o) => o.id === chosenOptionId)?.isHistoricalChoice
-                  ? 'Your directive matches NASA’s historical mission decision.'
-                  : 'You chose an alternative path. Here is how NASA directors resolved the dilemma:'}
-              </div>
+              <p className="text-sm text-slate-100">{dilemma.historicalOutcome}</p>
 
-              <div>
-                <h3 className="font-mono text-xs text-slate-400 mb-1.5">What Actually Happened</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  {dilemma.historicalOutcome}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-mono text-xs text-slate-400 mb-1.5">
-                  Scientific & Ethical Reasoning
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  {dilemma.ethicalReasoning}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-white/10 space-y-2">
+              <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
                 <a
                   href={dilemma.citationUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between gap-2 p-3 rounded bg-[#05070B] border border-white/10 hover:border-white/25 text-xs text-slate-200"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-sky-300 hover:text-white"
                 >
-                  <span className="truncate">{dilemma.citationLabel}</span>
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                  <span>{dilemma.citationLabel}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
 
                 {linkedMission && (
                   <button
                     type="button"
                     onClick={() => onSelectMission(linkedMission)}
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded bg-white text-[#05070B] text-xs font-semibold hover:bg-slate-200 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-white text-[#05070B] font-mono text-xs font-bold hover:bg-slate-200 cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
-                    <span>Inspect {linkedMission.name} Dossier</span>
+                    <span>Open Dossier</span>
                   </button>
                 )}
               </div>

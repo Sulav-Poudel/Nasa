@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { AlertTriangle, Sparkles } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { AlertTriangle } from 'lucide-react';
 import {
   COMPUTED_AUDIT,
   DATASET_VERIFICATION_FLAGS,
@@ -9,43 +9,35 @@ import {
   REPORTED_STATS,
 } from '../data/archive';
 import type { MissionRecord } from '../types/archive';
-import { spaceAudio } from '../utils/audio';
+import { MemoryWall3D } from './MemoryWall3D';
 
 interface LegacyAndWallProps {
+  litMemoryIds: string[];
+  onLightMemory: (missionId: string, points: number) => void;
   onSelectMission: (mission: MissionRecord) => void;
 }
 
-export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({ onSelectMission }) => {
-  const [focusedMemoryId, setFocusedMemoryId] = useState<string>('voyager-1');
-
-  const focusedMission = useMemo(
-    () => MISSIONS.find((m) => m.id === focusedMemoryId) ?? MISSIONS[0],
-    [focusedMemoryId],
-  );
-
+export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({
+  litMemoryIds,
+  onLightMemory,
+  onSelectMission,
+}) => {
   const sortedByMass = useMemo(
     () => [...MISSIONS].sort((a, b) => b.hardwareMassKg - a.hardwareMassKg).slice(0, 8),
     [],
   );
   const maxMass = sortedByMass[0]?.hardwareMassKg || 2500;
 
-  // Deterministic quiet starfield coordinates for the 27 Memory Wall lights
-  const memoryStars = useMemo(() => {
-    return MISSIONS.map((m, idx) => {
-      const col = idx % 9;
-      const row = Math.floor(idx / 9);
-      const jitterX = ((idx * 37) % 10) - 5;
-      const jitterY = ((idx * 53) % 14) - 7;
-      return {
-        mission: m,
-        xPct: 8 + col * 10.5 + jitterX * 0.45,
-        yPct: 18 + row * 28 + jitterY * 0.8,
-      };
-    });
-  }, []);
-
   return (
-    <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 space-y-16">
+    <div className="space-y-12">
+      {/* INTERACTIVE 3D PHYSICS PARTICLE MEMORY WALL */}
+      <MemoryWall3D
+        litMemoryIds={litMemoryIds}
+        onLightMemory={onLightMemory}
+        onSelectMission={onSelectMission}
+      />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pb-12 space-y-16">
       {/* H. THE SCIENTIFIC LEGACY */}
       <section className="space-y-8">
         <header className="max-w-3xl pb-6 border-b border-white/10">
@@ -271,115 +263,15 @@ export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({ onSelectMission })
         </div>
       </section>
 
-      {/* 5. THE MEMORY WALL */}
-      <section className="pt-8 border-t border-white/10 space-y-8">
-        <header className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-slate-400">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>The Memory Wall · 27 Points of Light</span>
-          </div>
-          <h2 className="mt-2 text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-            Lights Left Across the Dark
-          </h2>
-          <p className="mt-3 text-base text-slate-300 leading-relaxed">
-            Each point of light represents a spacecraft in this archive. Select any light to remember its destination, operational span, and enduring contribution.
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          <div className="lg:col-span-7 relative min-h-[380px] rounded-md bg-[#030509] border border-white/10 overflow-hidden p-4">
-            {memoryStars.map(({ mission, xPct, yPct }) => {
-              const active = mission.id === focusedMemoryId;
-              const color = PILLAR_COLORS[mission.disposalReason];
-              return (
-                <button
-                  key={mission.id}
-                  type="button"
-                  onClick={() => {
-                    setFocusedMemoryId(mission.id);
-                    spaceAudio.playTelemetryPing(640);
-                  }}
-                  aria-label={`Select ${mission.name}`}
-                  style={{ left: `${xPct}%`, top: `${yPct}%` }}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 p-2.5 group cursor-pointer focus:outline-none"
-                >
-                  <span
-                    className={`block rounded-full transition-transform ${
-                      active ? 'w-3.5 h-3.5 scale-125' : 'w-2 h-2 group-hover:scale-150'
-                    }`}
-                    style={{
-                      backgroundColor: color,
-                      boxShadow: active ? `0 0 18px 4px ${color}` : `0 0 8px 1px ${color}66`,
-                    }}
-                  />
-                  <span className="sr-only">{mission.name}</span>
-                </button>
-              );
-            })}
-
-            <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>Click any light to read its memorial</span>
-              <span>27 Spacecraft</span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-md bg-[#090D16] border border-white/10 flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-400">
-                <span style={{ color: PILLAR_COLORS[focusedMission.disposalReason] }}>
-                  {focusedMission.disposalReason}
-                </span>
-                <span aria-hidden="true">·</span>
-                <span>{focusedMission.status}</span>
-                <span aria-hidden="true">·</span>
-                <span>{focusedMission.region}</span>
-              </div>
-              <h3 className="text-2xl font-semibold text-white">{focusedMission.name}</h3>
-              <dl className="space-y-3 text-sm pt-2 border-t border-white/10">
-                <div>
-                  <dt className="font-mono text-[11px] text-slate-400">Destination</dt>
-                  <dd className="text-slate-200">{focusedMission.location}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[11px] text-slate-400">Operational Span</dt>
-                  <dd className="text-slate-200 tabular-nums">
-                    {focusedMission.launchDate} → {focusedMission.eventDate}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[11px] text-slate-400">Scientific Contribution</dt>
-                  <dd className="text-slate-300 leading-relaxed">
-                    {focusedMission.scienceReturn}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[11px] text-slate-400">Legacy</dt>
-                  <dd className="text-slate-200 leading-relaxed">
-                    {focusedMission.humanStory}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => onSelectMission(focusedMission)}
-              className="w-full py-2.5 px-4 rounded-md border border-white/20 text-xs font-semibold text-white hover:bg-white hover:text-[#05070B] transition-colors cursor-pointer"
-            >
-              Open Full Archival Record
-            </button>
-          </div>
-        </div>
-
-        <footer className="py-14 text-center space-y-4 border-t border-white/10">
-          <p className="font-display text-xl sm:text-3xl text-slate-200 max-w-2xl mx-auto">
-            Somewhere on the Moon, Mars, Saturn, and beyond, our machines are still telling stories.
-          </p>
-          <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
-            Abandoned. Not forgotten.
-          </p>
-        </footer>
-      </section>
+      <footer className="py-12 text-center space-y-4 border-t border-white/10">
+        <p className="font-display text-xl sm:text-3xl text-slate-200 max-w-2xl mx-auto">
+          Somewhere on the Moon, Mars, Saturn, and beyond, our machines are still telling stories.
+        </p>
+        <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
+          Abandoned. Not forgotten.
+        </p>
+      </footer>
+      </div>
     </div>
   );
 };
