@@ -1,0 +1,1109 @@
+{
+  "meta": {
+    "project": "Thrown Away on Purpose",
+    "subtitle": "NASA Space Apps Challenge 2026 — Hardware & Storytelling",
+    "description": "Some of NASA's most valuable hardware wasn't abandoned — it was thrown away on purpose as a deliberate scientific experiment, a vital payload sacrifice, or an ethical shield for life we haven't yet discovered.",
+    "version": "1.0.0",
+    "exportedAt": "2026-11-15T18:18:00+05:45",
+    "totalMissions": 27,
+    "totalCategories": 4,
+    "total3DModels": 6
+  },
+
+  "pillars": [
+    {
+      "id": "Weight",
+      "title": "Weight",
+      "summary": "Apollo Lunar Jettison traded discarded gear for 382 kg of Moon rocks — the largest off-Earth sample return in history.",
+      "detail": "Hardware was deliberately left behind on the Moon, Mars, or in space to save ascent mass so that scientific samples, data, or crew could return home safely.",
+      "missionCount": 5,
+      "color": "#e5b880"
+    },
+    {
+      "id": "Experiments",
+      "title": "Experiments",
+      "summary": "Apollo 12 smashed its 2.4-ton Lunar Module into the Moon; it rang for 55 minutes, proving lunar rocks lack dampening water. LCROSS and DART followed.",
+      "detail": "Spacecraft were intentionally crashed, impacted, or destroyed as the science experiment itself — the hardware's destruction generated the data.",
+      "missionCount": 8,
+      "color": "#7dd3fc"
+    },
+    {
+      "id": "Protection",
+      "title": "Protection",
+      "summary": "Cassini plunged into Saturn in 2017 to protect Enceladus & Titan oceans; Dawn was parked at Ceres.",
+      "detail": "Spacecraft were deliberately disposed of to protect potentially habitable worlds from biological contamination by dormant Earth microbes.",
+      "missionCount": 5,
+      "color": "#86efac"
+    },
+    {
+      "id": "Time",
+      "title": "Time & Decay",
+      "summary": "Voyager 1 crosses 1 light-day (24 light-hours) on Nov 18 2026 — still transmitting after 49 years.",
+      "detail": "Hardware that simply ran out of power, propellant, or communication range after years or decades of service far beyond their design lifetimes.",
+      "missionCount": 9,
+      "color": "#d8b4fe"
+    }
+  ],
+
+  "missions": [
+    {
+      "id": "apollo-retroreflectors",
+      "name": "Apollo 11, 14 & 15 Retroreflectors (LRRR)",
+      "designation": "LRRR-11 / LRRR-14 / LRRR-15",
+      "region": "Moon",
+      "disposalReason": "Weight",
+      "status": "Active",
+      "category": "Laser Prism Mirror Array",
+      "location": "Sea of Tranquility (11), Fra Mauro (14), Hadley-Apennine (15)",
+      "eventDate": "July 1969 – Present (55+ Years Active)",
+      "launchDate": "1969 – 1971",
+      "coordinates": "0.673° N, 23.473° E (Apollo 11 site)",
+      "hardwareMassKg": 77,
+      "highlightTag": "Still Working Since 1969 (0 Watts Power)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Laser ranging pulses timed by observatories on Earth (McDonald, Apache Point) down to millimeter precision.",
+      "description": "Suitcase-sized corner-cube prism mirror arrays left behind by Apollo astronauts on the lunar regolith. They require zero batteries or electronics, yet remain the only continuously functioning science hardware from Apollo.",
+      "scienceReturn": "Measures the exact Earth-Moon distance down to millimeter accuracy by bouncing terrestrial laser pulses back to Earth. Proves the Moon drifts away at 3.8 cm/year, tests Einstein's General Relativity with extreme precision, and maps fluid motion inside the lunar core-mantle boundary.",
+      "humanStory": "While all Apollo electronics died within weeks, these zero-power suitcase-sized arrays continue operating after 55+ years. Earth observatories fire trillions of photons across 384,000 km of space to hit a panel no bigger than a suitcase, catching the tiny handful of returning photons.",
+      "nasaDataSources": [
+        {
+          "title": "Lunar Laser Ranging PDS Geosciences Node",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/apollo/lrr.htm",
+          "citationId": "NASA-PDS-LRRR-1969"
+        },
+        {
+          "title": "LROC NAC High-Resolution Apollo 11 Landing Site",
+          "datasetUrl": "https://quickmap.lroc.asu.edu/",
+          "citationId": "LROC-A11-RETRO"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/6900957/6900957~orig.jpg",
+      "imageCredit": "NASA / Saturn Apollo Program (NASA ID: 6900957)"
+    },
+    {
+      "id": "apollo-moon-buggies",
+      "name": "Apollo Lunar Roving Vehicles (LRV 1-3)",
+      "designation": "LRV-15 / LRV-16 / LRV-17",
+      "region": "Moon",
+      "disposalReason": "Weight",
+      "status": "Completed",
+      "category": "Electric Manned Rover",
+      "location": "Hadley-Apennine (15), Descartes Highlands (16), Taurus-Littrow (17)",
+      "eventDate": "1971 – 1972",
+      "launchDate": "July 1971 – Dec 1972",
+      "coordinates": "26.132° N, 3.633° E (Apollo 15 Hadley)",
+      "hardwareMassKg": 210,
+      "highlightTag": "Parked Permanently to Save Ascent Mass",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Inspected and photographed in situ by LROC Narrow Angle Camera at all three landing sites.",
+      "description": "Foldable four-wheeled electric rovers built for astronauts, designed to unfold like lawn furniture from the Lunar Module descent stage.",
+      "scienceReturn": "Expanded astronaut exploration traverse radius from hundreds of meters to over 36 km per mission, allowing crews to collect diverse geologic samples across crater rims, rilles, and mountain slopes, totaling 382 kg of returned Moon rocks.",
+      "humanStory": "Weighed 210 kg on Earth (just 34 kg in lunar gravity). During Apollo 17, Gene Cernan accidentally caught his hammer on a rear fender and snapped it off, showering the crew in abrasive lunar dust. The astronauts jury-rigged a replacement fender on the surface using 4 laminated maps, duct tape, and clamps — a fix that survived 9+ km of driving!",
+      "nasaDataSources": [
+        {
+          "title": "Apollo Lunar Surface Journal - LRV Systems",
+          "datasetUrl": "https://www.nasa.gov/history/alsj/lrv.html",
+          "citationId": "NASA-ALSJ-LRV-REPORT"
+        },
+        {
+          "title": "LROC Lunar Roving Vehicle Tracks & Parking Sites",
+          "datasetUrl": "https://www.lroc.asu.edu/featured_sites/view_site/46",
+          "citationId": "LROC-LRV-IMAGERY"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/as17-137-20979/as17-137-20979~orig.jpg",
+      "imageCredit": "NASA / Apollo 17 Crew (NASA ID: as17-137-20979)"
+    },
+    {
+      "id": "surveyor-3",
+      "name": "Surveyor 3 (Visited by Apollo 12)",
+      "designation": "Surveyor-C / Apollo 12 Inspection",
+      "region": "Moon",
+      "disposalReason": "Experiments",
+      "status": "Completed",
+      "category": "Robotic Lunar Soft Lander",
+      "location": "Mare Cognitum inside Oceanus Procellarum",
+      "eventDate": "April 1967 (Landed) / Nov 1969 (Retrieved by Crew)",
+      "launchDate": "April 17, 1967",
+      "coordinates": "3.015° S, 23.418° W",
+      "hardwareMassKg": 281,
+      "highlightTag": "Only Robotic Lander Visited by Humans on Another World",
+      "evidenceLevel": "SCIENTISTS_THINK",
+      "evidenceNote": "Streptococcus mitis bacteria found in camera foam sparked debate: survived 31 months in vacuum or contamination during Earth lab retrieval?",
+      "description": "Three-legged automated robotic precursor lander with a television camera and soil mechanics surface sampler. Landed 31 months before humans arrived.",
+      "scienceReturn": "Proved the lunar soil had sufficient bearing strength to support a human lander without sinking into deep dust. Taught aerospace engineers how long-term solar radiation, micrometeorites, and extreme thermal cycling degrade space alloys and optical glass.",
+      "humanStory": "Surveyor 3 is the only robotic probe ever visited by humans on another world. Apollo 12 astronauts Pete Conrad and Alan Bean touched down just 163 meters away in 'Pete's Parking Lot', walked over, and cut off its TV camera and scoop to return to Earth. Back in clean rooms, microbes were cultured from the camera foam, launching planetary protection protocols.",
+      "nasaDataSources": [
+        {
+          "title": "NSSDC Master Catalog: Surveyor 3",
+          "datasetUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1967-035A",
+          "citationId": "NASA-NSSDC-SURVEYOR3"
+        },
+        {
+          "title": "Analysis of Surveyor 3 Materials and Microbial Debate",
+          "datasetUrl": "https://curator.jsc.nasa.gov/antartica/surveyor3.cfm",
+          "citationId": "JSC-SURVEYOR-MICROBE"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/AS12-48-7134/AS12-48-7134~orig.jpg",
+      "imageCredit": "NASA / Apollo 12 Crew (NASA ID: AS12-48-7134)"
+    },
+    {
+      "id": "lunar-prospector",
+      "name": "Lunar Prospector (Burial of Eugene Shoemaker)",
+      "designation": "Discovery 2 Mission",
+      "region": "Moon",
+      "disposalReason": "Experiments",
+      "status": "Impacted",
+      "category": "Polar Orbiting Surveyor / Impactor",
+      "location": "Crashed into a permanently shadowed south pole crater",
+      "eventDate": "July 31, 1999 (Intentional Impact)",
+      "launchDate": "January 7, 1998",
+      "coordinates": "87.7° S, 42.0° E (Near Shoemaker Crater)",
+      "hardwareMassKg": 158,
+      "highlightTag": "Carried Only Human Cremated Remains on the Moon",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Epithermal neutron spectrometer confirmed polar hydrogen; crash monitored by Hubble and McDonald Observatory.",
+      "description": "Low-cost spin-stabilized orbiter designed to map lunar resources, gravity, and magnetic anomalies from low polar orbit.",
+      "scienceReturn": "Mapped global elemental concentrations (iron, titanium, uranium, thorium) and discovered strong localized hydrogen signatures at both lunar poles, providing the first strong evidence for water ice sequestered in permanently shadowed craters.",
+      "humanStory": "Planetary geologist Eugene Shoemaker trained Apollo astronauts and mapped craters, but Addison's disease prevented him from spaceflight. When he died in an Australian car crash in 1997, NASA placed an ounce of his cremated ashes inside a brass foil capsule wrapped with a Romeo & Juliet inscription. He remains the only human buried on the Moon.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Geosciences Node: Lunar Prospector",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/lp/",
+          "citationId": "NASA-PDS-LP-1998"
+        },
+        {
+          "title": "Ames Research Center: Lunar Prospector Legacy",
+          "datasetUrl": "https://www.nasa.gov/centers-and-facilities/ames/lunar-prospector/",
+          "citationId": "NASA-ARC-LP"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA18162/PIA18162~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA18162)"
+    },
+    {
+      "id": "lcross",
+      "name": "LCROSS & Spent Centaur Upper Stage",
+      "designation": "Centaur Rocket / Shepherd Satellite",
+      "region": "Moon",
+      "disposalReason": "Experiments",
+      "status": "Impacted",
+      "category": "Dual Kinetic Impactor & Plume Spectrometer",
+      "location": "Cabeus Crater (Permanently Shadowed South Pole)",
+      "eventDate": "October 9, 2009",
+      "launchDate": "June 18, 2009",
+      "coordinates": "84.9° S, 45.5° W (Cabeus Crater floor)",
+      "hardwareMassKg": 2366,
+      "highlightTag": "2.2-Ton Rocket Crashed to Blast Ice into Sunlight",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Near-infrared absorption spectrometers detected distinct 1.4- and 1.9-micrometer water ice spectral signatures in the plume.",
+      "description": "A 2.2-ton empty Centaur rocket stage was thrown into Cabeus crater at 9,000 km/h, while the LCROSS shepherd spacecraft flew through the debris cloud to measure its contents before impacting itself 4 minutes later.",
+      "scienceReturn": "Discovered that permanently shadowed lunar polar craters contain ~5.6% water ice by mass, alongside carbon monoxide, methane, ammonia, and sulfur compounds. Proven vital for Artemis base planning.",
+      "humanStory": "How do you look inside a pitch-black lunar crater that hasn't seen sunlight in billions of years? You throw a 2.2-ton empty rocket stage into it at 9,000 km/h! The Centaur slammed down, throwing frozen dirt 10 miles into the sunlight, and LCROSS flew straight into the debris cloud taking readings until it smashed into the lunar surface.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Atmospheres Node: LCROSS Science Data",
+          "datasetUrl": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/LCROSS/",
+          "citationId": "PDS-LCROSS-CABEUS"
+        },
+        {
+          "title": "Science Magazine: Detection of Water in LCROSS Plume",
+          "datasetUrl": "https://www.science.org/doi/10.1126/science.1186986",
+          "citationId": "SCIENCE-LCROSS-2010"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/ARC-2006-ACD06-0232-003/ARC-2006-ACD06-0232-003~orig.jpg",
+      "imageCredit": "NASA Ames Research Center (NASA ID: ARC-2006-ACD06-0232-003)"
+    },
+    {
+      "id": "grail",
+      "name": "GRAIL-A ('Ebb') & GRAIL-B ('Flow')",
+      "designation": "Discovery 11 Tandem Orbiters",
+      "region": "Moon",
+      "disposalReason": "Protection",
+      "status": "Impacted",
+      "category": "Twin Microwave Gravity Orbiters",
+      "location": "Sally Ride Impact Site near Goldschmidt crater rim (North Pole)",
+      "eventDate": "December 17, 2012",
+      "launchDate": "September 10, 2011",
+      "coordinates": "75.62° N, 26.63° W",
+      "hardwareMassKg": 400,
+      "highlightTag": "Impact Mountain Dedicated to Dr. Sally Ride",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Ka-band Lunar Gravity Ranging System measured inter-spacecraft distance variations to micron precision.",
+      "description": "Twin washing-machine-sized orbiters that flew in formation around the Moon, transmitting Ka-band radio signals to measure tiny changes in distance caused by gravity anomalies.",
+      "scienceReturn": "Constructed the highest-resolution gravity map of any planetary body in the Solar System. Revealed that the Moon's crust is significantly thinner and more fractured than previously assumed, pulverized by heavy bombardment.",
+      "humanStory": "Students across the United States voted to name the twin orbiters 'Ebb' and 'Flow'. Middle schoolers picked photo targets with the onboard MoonKAM under the leadership of Dr. Sally Ride, America's first woman in space. Low on propellant, NASA intentionally crashed both orbiters into a lunar mountain to avoid hitting historical Apollo sites, naming the ridge in Ride's honor.",
+      "nasaDataSources": [
+        {
+          "title": "PDS Geosciences: GRAIL Primary Mission Gravity Models",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/grail/",
+          "citationId": "NASA-PDS-GRAIL-GRAV"
+        },
+        {
+          "title": "NASA News: GRAIL Impact Site Named for Sally Ride",
+          "datasetUrl": "https://www.nasa.gov/mission_pages/grail/news/grail20121217.html",
+          "citationId": "NASA-GRAIL-SALLY-RIDE"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA16622/PIA16622~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / MIT / GSFC (NASA ID: PIA16622)"
+    },
+    {
+      "id": "viking-1",
+      "name": "Viking 1 Lander & Orbiter",
+      "designation": "Viking Mission 1",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "RTG Nuclear-Powered Lander",
+      "location": "Chryse Planitia ('Golden Plain'), Mars",
+      "eventDate": "1976 – 1982 (6+ Years Operational)",
+      "launchDate": "August 20, 1975",
+      "coordinates": "22.697° N, 48.222° W",
+      "hardwareMassKg": 572,
+      "highlightTag": "First Operational Martian Surface Station",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Returned first surface color panoramas, recorded 6 years of meteorology, radio telemetry analyzed in PDS.",
+      "description": "Flagship stationary lander powered by two SNAP-19 radioisotope thermoelectric generators (RTGs), featuring twin facsimile cameras, meteorology booms, and a biology laboratory.",
+      "scienceReturn": "Sent the first high-resolution color photographs from the Martian surface. Analyzed iron-rich oxidized clays, tested the atmosphere for carbon dioxide and nitrogen, and tracked daily seasonal Martian atmospheric pressure shifts.",
+      "humanStory": "On July 20, 1976 — seven years to the day after Apollo 11 landed on the Moon — humanity received its first clear view of Mars's rocky rust-red plains. Viking was built for 90 days but survived over six years until an erroneous upload command terminated contact in 1982.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Viking Lander Archives",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/viking/lander.htm",
+          "citationId": "NASA-PDS-VIKING1"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA00567/PIA00567~orig.jpg",
+      "imageCredit": "NASA / JPL (NASA ID: PIA00567)"
+    },
+    {
+      "id": "pathfinder-sojourner",
+      "name": "Mars Pathfinder & Sojourner Rover",
+      "designation": "MESUR Pathfinder / Carl Sagan Station",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "Airbag Lander & Micro-Rover",
+      "location": "Ares Vallis flood plain, Chryse Planitia",
+      "eventDate": "July 4, 1997 – October 1997",
+      "launchDate": "December 4, 1996",
+      "coordinates": "19.33° N, 33.55° W",
+      "hardwareMassKg": 370,
+      "highlightTag": "First Wheeled Rover on Another Planet (11.5 kg)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "APXS spectrometer quantified elemental composition of Martian rocks ('Yogi', 'Barnacle Bill').",
+      "description": "Pioneered low-cost airbag landing technology and the 6-wheel rocker-bogie suspension system that became the template for all subsequent NASA Mars rovers.",
+      "scienceReturn": "Proved micro-robots could maneuver autonomously on Mars. Identified rounded conglomerate stones and streamlined island formations confirming ancient catastrophic mega-floods flowed across Ares Vallis.",
+      "humanStory": "Sojourner weighed just 11.5 kg (25 lbs) and was named after abolitionist heroine Sojourner Truth through a student essay contest. Built to last 7 sols, it operated for 83 sols until the base station's battery died in the cold Martian night.",
+      "nasaDataSources": [
+        {
+          "title": "NASA JPL Pathfinder Science Results",
+          "datasetUrl": "https://mars.nasa.gov/mpf/science/science.html",
+          "citationId": "JPL-PATHFINDER-1997"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA01551/PIA01551~orig.jpg",
+      "imageCredit": "NASA / JPL (NASA ID: PIA01551)"
+    },
+    {
+      "id": "spirit-mer-a",
+      "name": "Spirit (MER-A)",
+      "designation": "Mars Exploration Rover A",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "Solar-Powered Exploration Rover",
+      "location": "Gusev Crater / Columbia Hills (Home Plate)",
+      "eventDate": "2004 – 2010 (2,208 Sols)",
+      "launchDate": "June 10, 2003",
+      "coordinates": "14.5684° S, 175.4726° E",
+      "hardwareMassKg": 185,
+      "highlightTag": "Broken Stuck Wheel Unearthed Ancient Hydrothermal Springs",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Mini-TES and APXS confirmed 90%+ pure opaline silica exposed by stuck right front wheel.",
+      "description": "Six-wheeled robotic field geologist equipped with panoramic cameras, microscopic imagers, and rock abrasion tools.",
+      "scienceReturn": "Traveled 7.73 km across volcanic terrain. When its right-front wheel jammed, dragging it like an anchor, it dug a trench that unearthed 90% pure opaline silica — conclusive proof of ancient volcanic hydrothermal vents and hot springs.",
+      "humanStory": "Designed for a 90-sol mission, Spirit persevered for over six years. When it became hopelessly stuck in soft sand at 'Troy' in 2009, engineers converted it into a stationary observatory. It froze during its fourth Martian winter when dust coated its solar panels.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Geosciences MER-A Archive",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/mer/",
+          "citationId": "PDS-MER-A-SPIRIT"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA11755/PIA11755~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / Cornell (NASA ID: PIA11755)"
+    },
+    {
+      "id": "opportunity-mer-b",
+      "name": "Opportunity (MER-B / 'Oppy')",
+      "designation": "Mars Exploration Rover B",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "Solar-Powered Exploration Rover",
+      "location": "Meridiani Planum (Perseverance Valley)",
+      "eventDate": "2004 – 2018 (5,111 Sols / 14.8 Years)",
+      "launchDate": "July 7, 2003",
+      "coordinates": "1.9462° S, 354.4734° E",
+      "hardwareMassKg": 185,
+      "highlightTag": "First Off-World Marathon (45.16 km Driven)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Mössbauer spectrometer confirmed hematite composition of 'blueberries' formed in acidic water.",
+      "description": "Twin sister to Spirit, Opportunity explored Meridiani Planum, setting an endurance and distance record across 15 years.",
+      "scienceReturn": "Discovered hematite spherules ('blueberries') and jarosite sulphate salts embedded in sedimentary layers, proving liquid water once stood on ancient Mars for prolonged epochs.",
+      "humanStory": "Built to drive 1,000 meters over 90 days, Oppy survived 5,111 Martian sols and completed a full marathon (45.16 km). In June 2018, a catastrophic global dust storm blotted out the Sun. Her solar generation dropped from 300 Wh to 22 Wh, prompting the heartbreaking farewell: 'My battery is low and it's getting dark.'",
+      "nasaDataSources": [
+        {
+          "title": "NASA Mars Exploration Rover Mission: Opportunity",
+          "datasetUrl": "https://mars.nasa.gov/mer/mission/overview/",
+          "citationId": "NASA-MER-B-OPPY"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA17759/PIA17759~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA17759)"
+    },
+    {
+      "id": "phoenix-lander",
+      "name": "Phoenix Mars Lander",
+      "designation": "Scout Program Mission 1",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "Polar Arctic Trench Lander",
+      "location": "Green Valley, Vastitas Borealis (Martian Arctic)",
+      "eventDate": "May 2008 – November 2008",
+      "launchDate": "August 4, 2007",
+      "coordinates": "68.2188° N, 234.2508° E",
+      "hardwareMassKg": 350,
+      "highlightTag": "First Direct Discovery & Sublimation of Martian Water Ice",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Robotic arm trench 'Dodo-Goldilocks' exposed white dice-sized chunks that sublimated over 4 days under camera watch.",
+      "description": "Stationary arctic lander resurrecting components from canceled 2001 surveyor missions to probe permafrost at northern latitudes comparable to Alaska.",
+      "scienceReturn": "Dug trenches revealing subsurface pure water ice that evaporated into gas over four days. Discovered calcium carbonate and toxic perchlorate salts, defining the electrochemical boundary of Martian soil.",
+      "humanStory": "Built from the warehouse spare parts of a canceled mission like the mythical bird rising from ashes. As Phoenix descended on parachutes, Mars Reconnaissance Orbiter photographed it in mid-air — the first time one spacecraft imaged another descending to the surface of another planet.",
+      "nasaDataSources": [
+        {
+          "title": "NASA Phoenix Mars Mission Data Archive",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/phoenix/",
+          "citationId": "PDS-PHOENIX-2008"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA10701/PIA10701~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / University of Arizona (NASA ID: PIA10701)"
+    },
+    {
+      "id": "insight-lander",
+      "name": "InSight Lander",
+      "designation": "Discovery 12 Geophysical Lander",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Completed",
+      "category": "Seismic & Heat Flow Observatory",
+      "location": "Elysium Planitia, Mars",
+      "eventDate": "Nov 2018 – Dec 2022",
+      "launchDate": "May 5, 2018",
+      "coordinates": "4.5024° N, 135.6234° E",
+      "hardwareMassKg": 358,
+      "highlightTag": "Detected 1,319 Marsquakes to Map the Core",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "SEIS instrument detected seismic shear and pressure waves from tectonic rifts and meteor impacts.",
+      "description": "Stationary geophysical station deploying a vacuum-domed ultra-sensitive seismometer (SEIS) and heat flow probe onto the Martian ground.",
+      "scienceReturn": "Detected 1,319 marsquakes, revealing that Mars possesses a liquid iron-nickel core with a radius of approximately 1,830 km, a crust 20–40 km thick, and active tectonic faulting in Cerberus Fossae.",
+      "humanStory": "InSight traveled to Mars accompanied by MarCO, the first interplanetary CubeSats. Over four years, Martian dust caked its solar panels. In April 2022, it used its scoop to gently clean its arm, settled into a rest pose, and sent its final transmissions as power dwindled to zero.",
+      "nasaDataSources": [
+        {
+          "title": "PDS Geosciences: InSight SEIS Seismic Waveforms",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/insight/seis.htm",
+          "citationId": "PDS-INSIGHT-SEIS"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA22876/PIA22876~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA22876)"
+    },
+    {
+      "id": "ingenuity-helicopter",
+      "name": "Ingenuity Mars Helicopter ('Ginny')",
+      "designation": "Mars 2020 Tech Demo",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Grounded",
+      "category": "Autonomous Aerodyne Helicopter",
+      "location": "'Valinor Hills', Jezero Crater, Mars",
+      "eventDate": "April 2021 – January 2024 (72 Flights)",
+      "launchDate": "July 30, 2020",
+      "coordinates": "18.444° N, 77.451° E",
+      "hardwareMassKg": 1.8,
+      "highlightTag": "First Powered Controlled Flight on Another Planet",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Navcam downward optical tracking, laser altimeter, and Perseverance mastcam telemetry logged 72 flights.",
+      "description": "A 1.8-kg dual-rotor drone with carbon fiber counter-rotating blades spinning at 2,400 RPM to generate lift in Mars's thin 1% atmosphere.",
+      "scienceReturn": "Proved rotorcraft flight is viable on Mars. Served as an active aerial scout for Perseverance, mapping rover pathways, finding obstacle-free routes, and photographing inaccessible geological cliff faces.",
+      "humanStory": "Planned as a 30-day technology demonstration for 5 flights, Ginny flew 72 times across three years, logging 17.2 km of flight. On Flight 72, rotor tip damage occurred during a sandy landing. The team named its peaceful resting ground 'Valinor Hills' after Tolkien's Undying Lands.",
+      "nasaDataSources": [
+        {
+          "title": "NASA Mars Helicopter Flight Log",
+          "datasetUrl": "https://mars.nasa.gov/technology/helicopter/#Flight-Log",
+          "citationId": "NASA-INGENUITY-LOG"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA25321/PIA25321~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA25321)"
+    },
+    {
+      "id": "maven-orbiter",
+      "name": "MAVEN (Mars Atmosphere Evolution)",
+      "designation": "Mars Scout 2 Orbiter",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Lost Contact",
+      "category": "Atmospheric Sputtering Orbiter",
+      "location": "Orbiting Mars (380 x 6,200 km orbit)",
+      "eventDate": "2014 – June 3, 2026 (Mission Declared Ended)",
+      "launchDate": "November 18, 2013",
+      "coordinates": "Aero-braked elliptical Mars orbit",
+      "hardwareMassKg": 2454,
+      "highlightTag": "Explained How the Solar Wind Stripped Mars Dry",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Ion spectrometers measured loss rates of atmospheric ions to space during solar storm coronal mass ejections.",
+      "description": "Mars atmospheric orbiter and communications relay satellite studying upper atmospheric escape mechanisms.",
+      "scienceReturn": "Disproved the idea that atmospheric gas was primarily absorbed into rocks; proved the solar wind stripped Mars's water and thick atmosphere into space once the core magnetic dynamo died 4 billion years ago.",
+      "humanStory": "After 11+ years of serving as both a pioneering climate scientist and deep-space relay antenna for Curiosity and Perseverance, MAVEN dipped behind Mars in December 2025 and never re-established stable telemetry. NASA declared the mission formally concluded on June 3, 2026.",
+      "nasaDataSources": [
+        {
+          "title": "PDS Atmospheres: MAVEN Atmospheric Science Node",
+          "datasetUrl": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MAVEN/maven.html",
+          "citationId": "PDS-MAVEN-ATMOS"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA18866/PIA18866~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / Univ. of Colorado (NASA ID: PIA18866)"
+    },
+    {
+      "id": "curiosity-msl",
+      "name": "Curiosity (Mars Science Laboratory)",
+      "designation": "MSL Rover",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Active",
+      "category": "Nuclear-Powered Mobile Chemistry Lab",
+      "location": "Gale Crater (Mount Sharp / Aeolis Mons)",
+      "eventDate": "August 2012 – Present (Active in Nov 2026)",
+      "launchDate": "November 26, 2011",
+      "coordinates": "4.5895° S, 137.4417° E",
+      "hardwareMassKg": 899,
+      "highlightTag": "Climbed 1 km of Elevation up Mount Sharp",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "SAM laboratory pyrolysis GC-MS confirmed ancient sulfur-bearing aliphatic and aromatic organics.",
+      "description": "A 900-kg SUV-sized nuclear rover armed with laser chemistry spectrometer, mineralogy XRD, and robotic rock coring drill.",
+      "scienceReturn": "Proved ancient Gale Crater was a long-lived, habitable freshwater lake with neutral pH and all chemical elements necessary for microbial life. Discovered complex organic carbon macromolecules inside mudstones.",
+      "humanStory": "Too massive for landing airbags, NASA engineers invented the sky crane maneuver — lowering Curiosity on nylon cords from a rocket backpack. Having operated for over 5,000 Martian sols, Curiosity has climbed more than 1 vertical kilometer up Mount Sharp.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS MSL Curiosity Science Data",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/msl/",
+          "citationId": "PDS-MSL-CURIOSITY"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA19807/PIA19807~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / MSSS (NASA ID: PIA19807)"
+    },
+    {
+      "id": "perseverance-m2020",
+      "name": "Perseverance Rover (Mars 2020)",
+      "designation": "Mars 2020 Astrobiology Rover",
+      "region": "Mars",
+      "disposalReason": "Time",
+      "status": "Active",
+      "category": "Astrobiology & Sample-Caching Rover",
+      "location": "Jezero Crater Western Rim & Neretva Vallis",
+      "eventDate": "February 2021 – Present (Active in Nov 2026)",
+      "launchDate": "July 30, 2020",
+      "coordinates": "18.38° N, 77.58° E",
+      "hardwareMassKg": 1025,
+      "highlightTag": "Broke Off-World Marathon Record (45.22 km in Oct 2026)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "SHERLOC Raman/fluorescence and PIXL X-ray spectrometers verified organic signatures in Cheyava Falls rock core.",
+      "description": "Heaviest and most autonomous planetary rover ever built, carrying 43 hermetically sealed titanium sample tubes for future return to Earth.",
+      "scienceReturn": "Cored pristine rock samples from an ancient river delta. Discovered potential biosignature carbon rings and verified oxygen extraction from CO2 using MOXIE.",
+      "humanStory": "On October 11, 2026, Perseverance officially broke Opportunity's 45.16 km all-time off-world driving record, reaching 45.22 km. While Opportunity took nearly 15 years, Percy achieved it in just 5.5 years thanks to AutoNav self-driving computer vision!",
+      "nasaDataSources": [
+        {
+          "title": "NASA Mars 2020 Mission Telemetry & Sample Dossier",
+          "datasetUrl": "https://mars.nasa.gov/mars2020/participate/samples/",
+          "citationId": "NASA-M2020-PERCY"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA25735/PIA25735~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA25735)"
+    },
+    {
+      "id": "voyager-1",
+      "name": "Voyager 1 (Crossing 1 Light-Day)",
+      "designation": "Interstellar Mission (VGR-1)",
+      "region": "Deep Space",
+      "disposalReason": "Time",
+      "status": "Active",
+      "category": "Nuclear Deep Space Flyby Probe",
+      "location": "Interstellar Space (Beyond Heliopause / 173 AU)",
+      "eventDate": "Nov 18, 2026 (Reaches 24 Light-Hours Distance)",
+      "launchDate": "September 5, 1977",
+      "coordinates": "Right Ascension 17h 15m, Dec +12° 02'",
+      "hardwareMassKg": 815,
+      "highlightTag": "Crosses 1 Light-Day (25.9B km) on Nov 18, 2026",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Plasma wave instrument recorded abrupt jump in electron plasma density from 0.002 to 0.08 cm⁻³ crossing the heliopause in August 2012.",
+      "description": "Humanity's most distant robotic envoy, traveling outward into deep interstellar space at 17 km/s (38,000 mph).",
+      "scienceReturn": "First spacecraft to sample the interstellar medium. Discovered active sulfur volcanism on Io, ring structures at Jupiter, and nitrogen atmospheric density on Titan.",
+      "humanStory": "Carrying the golden record and responsible for the 1990 'Pale Blue Dot' photo. On November 18, 2026, Voyager 1 crosses 1 full light-day (24 hours one-way light speed) from Earth — meaning a radio transmission takes 48 hours for a round-trip reply. NASA engineers are shutting down individual heaters and instruments to keep its heart beating past 2030.",
+      "nasaDataSources": [
+        {
+          "title": "NASA JPL Voyager Real-Time Telemetry & Distance",
+          "datasetUrl": "https://voyager.jpl.nasa.gov/mission/status/",
+          "citationId": "JPL-VOYAGER-TELEMETRY"
+        },
+        {
+          "title": "NASA Horizons Interstellar Trajectory Ephemeris",
+          "datasetUrl": "https://ssd.jpl.nasa.gov/horizons/",
+          "citationId": "HORIZONS-VGR1-2026"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA23645/PIA23645~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech (NASA ID: PIA23645)"
+    },
+    {
+      "id": "voyager-2",
+      "name": "Voyager 2",
+      "designation": "Grand Tour Mission (VGR-2)",
+      "region": "Deep Space",
+      "disposalReason": "Time",
+      "status": "Active",
+      "category": "Grand Tour Outer Planet Explorer",
+      "location": "Interstellar Space (Southern Celestial Hemisphere / 144 AU)",
+      "eventDate": "1977 – Present (En route to 1 light-day in 2035)",
+      "launchDate": "August 20, 1977",
+      "coordinates": "Right Ascension 20h 10m, Dec -59° 40'",
+      "hardwareMassKg": 815,
+      "highlightTag": "Only Probe to Visit All 4 Giant Planets (Jupiter, Saturn, Uranus, Neptune)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Magnetic field and cosmic ray instruments measured heliopause transition in November 2018.",
+      "description": "The sole robotic emissary to execute the four-planet Grand Tour, visiting Jupiter, Saturn, Uranus, and Neptune.",
+      "scienceReturn": "Discovered 10 moons and 2 rings at Uranus, 5 moons and the Great Dark Spot at Neptune, and geysers erupting nitrogen on Triton. Crossed into interstellar space in late 2018.",
+      "humanStory": "Voyager 2 actually launched 16 days before Voyager 1, utilizing a once-in-176-year planetary geometry. Because its trajectory swung southward to encounter Neptune, its antenna points toward Earth's southern sky, tracked predominantly by Canberra's Deep Space Network.",
+      "nasaDataSources": [
+        {
+          "title": "JPL Voyager Mission Interstellar Science Reports",
+          "datasetUrl": "https://voyager.jpl.nasa.gov/mission/science/",
+          "citationId": "JPL-VGR2-SCIENCE"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
+      "imageCredit": "NASA / JPL (NASA ID: PIA01492)"
+    },
+    {
+      "id": "pioneer-10",
+      "name": "Pioneer 10",
+      "designation": "Pioneer F",
+      "region": "Deep Space",
+      "disposalReason": "Time",
+      "status": "Lost Contact",
+      "category": "Asteroid Belt & Outer Solar System Scout",
+      "location": "Interstellar Trajectory heading toward star Aldebaran",
+      "eventDate": "March 1972 (Launched) / Jan 2003 (Final Whisper)",
+      "launchDate": "March 2, 1972",
+      "coordinates": "Coasting toward Taurus (reaches in ~2 million years)",
+      "hardwareMassKg": 258,
+      "highlightTag": "Carries Famous Gold-Anodized Pulsar Plaque",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Geiger tube telescopes and cosmic ray telescopes mapped Jupiter radiation belts.",
+      "description": "First spacecraft to cross the Asteroid Belt and first to obtain close-up images of Jupiter's turbulent atmosphere and magnetosphere.",
+      "scienceReturn": "Proved the Asteroid Belt was safe to traverse without catastrophic collisions. Discovered that Jupiter emits twice as much thermal heat as it absorbs from the Sun.",
+      "humanStory": "Bolted to its antenna struts is the famous gold-anodized aluminum plaque designed by Carl Sagan and Frank Drake, illustrating human figures and the solar system's location relative to 14 pulsars. Silent since 2003, it drifts endlessly toward the red giant Aldebaran.",
+      "nasaDataSources": [
+        {
+          "title": "NASA Ames Pioneer Missions History",
+          "datasetUrl": "https://www.nasa.gov/centers-and-facilities/ames/pioneer-10-spacecraft-milestones/",
+          "citationId": "NASA-AMES-P10"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/ARC-1972-AC72-2135/ARC-1972-AC72-2135~orig.jpg",
+      "imageCredit": "NASA Ames Research Center (NASA ID: ARC-1972-AC72-2135)"
+    },
+    {
+      "id": "near-shoemaker",
+      "name": "NEAR Shoemaker",
+      "designation": "Discovery 1 Asteroid Orbiter",
+      "region": "Deep Space",
+      "disposalReason": "Experiments",
+      "status": "Completed",
+      "category": "Unplanned Soft Asteroid Lander",
+      "location": "Surface of Asteroid 433 Eros (South of Himeros Crater)",
+      "eventDate": "Feb 12, 2001 (Landed) – March 2001",
+      "launchDate": "February 17, 1996",
+      "coordinates": "Asteroid 433 Eros surface",
+      "hardwareMassKg": 487,
+      "highlightTag": "Accidental Lander: Soft-Landed with Zero Landing Gear",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "X-ray and gamma-ray spectrometer transmitted high-precision compositional data directly from the asteroid surface for 16 days.",
+      "description": "Solar-powered asteroid orbiter never intended to touch down. Dropped onto Eros at under 4 mph when orbital propellant ran out.",
+      "scienceReturn": "Provided the first comprehensive physical and chemical analysis of a near-Earth S-type asteroid, confirming ordinary chondrite meteorite origins and revealing a surface coated in electrostatic dust ponds.",
+      "humanStory": "Engineers pulled off an audacity in space history: landing a probe with no legs on an asteroid 315 million km from Earth at just 3.8 mph. It came to rest on the tips of two solar panels, survived the impact, and beamed back bonus gamma-ray science for two full weeks.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Small Bodies Node: NEAR Data",
+          "datasetUrl": "https://pds-smallbodies.astro.umd.edu/data_sb/missions/near/index.shtml",
+          "citationId": "PDS-SBN-NEAR"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA02473/PIA02473~orig.jpg",
+      "imageCredit": "NASA / JHUAPL (NASA ID: PIA02473)"
+    },
+    {
+      "id": "deep-impact",
+      "name": "Deep Impact (Copper Kinetic Impactor)",
+      "designation": "Discovery 8 Comet Impactor",
+      "region": "Deep Space",
+      "disposalReason": "Experiments",
+      "status": "Impacted",
+      "category": "Copper Core Hypervelocity Impactor",
+      "location": "Excavated inside Comet 9P/Tempel 1",
+      "eventDate": "July 4, 2005",
+      "launchDate": "January 12, 2005",
+      "coordinates": "Comet Tempel 1 nucleus",
+      "hardwareMassKg": 372,
+      "highlightTag": "Vaporized in Flash Equivalent to 4.8 Tons of TNT",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Infrared spectrometer on flyby craft measured carbon dioxide, clay minerals, carbonates, and ice crystals in the ejection plume.",
+      "description": "A 372-kg impactor constructed predominantly from oxygen-free pure copper to prevent spectral contamination of the resulting vapor flash.",
+      "scienceReturn": "Blasted a crater through the sun-baked crust of Comet Tempel 1, exposing pristine solar nebula organics, silicates, and amorphous water ice that had been shielded for 4.5 billion years.",
+      "humanStory": "On July 4, 2005, NASA provided fireworks for the Solar System. The copper bullet steered itself toward the comet nucleus at 23,000 mph (10.2 km/s), snapping razor-sharp pictures right until 3.7 seconds before catastrophic vaporisation.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Small Bodies: Deep Impact Mission Data",
+          "datasetUrl": "https://pds-smallbodies.astro.umd.edu/data_sb/missions/deepimpact/index.shtml",
+          "citationId": "PDS-DEEP-IMPACT-2005"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA02137/PIA02137~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / UMD (NASA ID: PIA02137)"
+    },
+    {
+      "id": "dart-planetary-defense",
+      "name": "DART (Double Asteroid Redirection Test)",
+      "designation": "Planetary Defense Impactor",
+      "region": "Deep Space",
+      "disposalReason": "Experiments",
+      "status": "Impacted",
+      "category": "Kinetic Impactor Planetary Defense Craft",
+      "location": "Impacted Asteroid Moonlet Dimorphos (Didymos System)",
+      "eventDate": "September 26, 2022",
+      "launchDate": "November 24, 2021",
+      "coordinates": "Didymos-Dimorphos binary system",
+      "hardwareMassKg": 610,
+      "highlightTag": "Shortened Asteroid Orbital Period by 32 Minutes",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Earth-based light curves and radar confirmed reduction of Dimorphos orbital period from 11h 55m down to 11h 23m (a 32-minute shift).",
+      "description": "First dedicated planetary defense flight test, aimed at altering the orbit of an asteroid through hypervelocity kinetic collision.",
+      "scienceReturn": "Demonstrated momentum transfer efficiency (beta factor >3), meaning the ejected boulder spray provided more thrust than the spacecraft mass itself. ESA's Hera mission arrives in November 2026 to measure the crater.",
+      "humanStory": "DART released an Italian CubeSat (LICIACube) to capture the blast from a safe distance. Its own DRACO optical camera transmitted breathtaking images of boulders on Dimorphos until the final frame went red at 14,000 mph. It proved humanity has the technological capability to deflect killer asteroids.",
+      "nasaDataSources": [
+        {
+          "title": "NASA Planetary Defense Coordination Office: DART Results",
+          "datasetUrl": "https://www.nasa.gov/planetarydefense/dart/",
+          "citationId": "NASA-PDCO-DART"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/LRC-2022-0926-H1_P_DART-000425/LRC-2022-0926-H1_P_DART-000425~orig.jpg",
+      "imageCredit": "NASA / Johns Hopkins APL / Bill Ingalls"
+    },
+    {
+      "id": "messenger-mercury",
+      "name": "MESSENGER",
+      "designation": "Discovery 7 Mercury Orbiter",
+      "region": "Deep Space",
+      "disposalReason": "Protection",
+      "status": "Impacted",
+      "category": "Solar-Shielded Thermal Orbiter",
+      "location": "Impacted Mercury (Shakespeare Basin rim, 54.4° N, 149.9° W)",
+      "eventDate": "April 30, 2015",
+      "launchDate": "August 3, 2004",
+      "coordinates": "54.4° N, 149.9° W (Mercury)",
+      "hardwareMassKg": 507,
+      "highlightTag": "Discovered Water Ice on the Planet Closest to the Sun",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Neutron spectrometer and laser altimeter confirmed pure water ice deposits in permanently shadowed polar craters.",
+      "description": "Protected by a lightweight ceramic fabric sunshield, MESSENGER circled Mercury in a highly eccentric orbit.",
+      "scienceReturn": "Discovered that Mercury's permanently shadowed polar craters are rich in water ice despite the planet's proximity to the Sun. Mapped the entire surface and confirmed a surprisingly large liquid iron core.",
+      "humanStory": "Entering orbit around Mercury requires excessive fuel to brake against the Sun's gravitational pull; MESSENGER spent 6.5 years executing 6 planetary gravity assists. When fuel was exhausted in 2015, engineers used leftover helium pressurant gas to stay aloft for an extra month before smashing into the northern plains at 8,750 mph.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Geosciences: MESSENGER Mercury Node",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/messenger/",
+          "citationId": "PDS-MESSENGER-2015"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA18145/PIA18145~orig.jpg",
+      "imageCredit": "NASA / JHUAPL / Carnegie Institution (NASA ID: PIA18145)"
+    },
+    {
+      "id": "magellan-venus",
+      "name": "Magellan Radar Mapper",
+      "designation": "Venus Radar Mapper (VRM)",
+      "region": "Deep Space",
+      "disposalReason": "Experiments",
+      "status": "Completed",
+      "category": "Synthetic Aperture Radar (SAR) Orbiter",
+      "location": "Vaporized in the Crushing Atmosphere of Venus",
+      "eventDate": "October 12–13, 1994 (Windmill Plunge)",
+      "launchDate": "May 4, 1989",
+      "coordinates": "Atmospheric entry over Venus equator",
+      "hardwareMassKg": 1035,
+      "highlightTag": "Assembled from Spare Voyager & Galileo Parts",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "Synthetic Aperture Radar penetrated 100% cloud cover, mapping 98% of the Venusian surface at 100m resolution.",
+      "description": "Built largely from spare hardware from Voyager, Galileo, and Mariner 9, Magellan used radar to map through Venus's impenetrable sulfuric acid clouds.",
+      "scienceReturn": "Revealed that Venus underwent catastrophic global volcanic resurfacing 500 million years ago. Found vast lava rivers longer than the Nile, pancake domes, and no tectonic plate boundaries.",
+      "humanStory": "To save budget, NASA made Magellan the ultimate space-recycling champion, assembled from flight-spare Voyager antennas and Galileo computer racks. At mission's end, engineers commanded the 'Windmill Experiment' — turning its solar panels perpendicular to dip into the dense atmosphere to measure aerodynamic drag before burning up.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Geosciences: Magellan Venus Radar",
+          "datasetUrl": "https://pds-geosciences.wustl.edu/missions/magellan/",
+          "citationId": "PDS-MAGELLAN-SAR"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA00257/PIA00257~orig.jpg",
+      "imageCredit": "NASA / JPL (NASA ID: PIA00257)"
+    },
+    {
+      "id": "cassini-saturn",
+      "name": "Cassini (The Grand Finale Death Dive)",
+      "designation": "Cassini-Huygens Mission",
+      "region": "Deep Space",
+      "disposalReason": "Protection",
+      "status": "Completed",
+      "category": "Nuclear Flagship Saturn Orbiter",
+      "location": "Vaporized in Saturn's Upper Atmosphere (9.4° N, 53° W)",
+      "eventDate": "September 15, 2017 (Plunged at 77,000 mph)",
+      "launchDate": "October 15, 1997",
+      "coordinates": "9.4° N, 53° W (Saturn atmosphere)",
+      "hardwareMassKg": 2150,
+      "highlightTag": "Sacrificed to Protect Pristine Oceans on Enceladus & Titan",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "INMS spectrometer sampled hydrothermal hydrogen, methane, and organic macromolecule geysers erupting from Enceladus.",
+      "description": "Flagship orbiter that spent 13 years circling Saturn, discovering liquid methane seas on Titan and hydrothermal vents erupting from a global ocean inside Enceladus.",
+      "scienceReturn": "Confirmed Enceladus possesses a global saltwater ocean with hydrothermal vents containing all chemical prerequisites for methanogenic life. Sampled Saturn's ring rain falling into its upper atmosphere.",
+      "humanStory": "Because Enceladus and Titan have oceans capable of harboring alien life, scientists could not risk leaving Cassini dead in orbit where it might eventually collide and contaminate them with dormant Earth microbes. Cassini performed 22 daring dives between Saturn and its rings, then dove into Saturn's crushing atmosphere, firing thrusters to beam data home until its antenna broke apart.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Atmospheres: Cassini Grand Finale Archive",
+          "datasetUrl": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Cassini/cassini.html",
+          "citationId": "PDS-CASSINI-FINALE"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA17171/PIA17171~orig.jpg",
+      "imageCredit": "NASA / JPL-Caltech / SSI (NASA ID: PIA17171)"
+    },
+    {
+      "id": "new-horizons",
+      "name": "New Horizons",
+      "designation": "New Frontiers 1 Probe",
+      "region": "Deep Space",
+      "disposalReason": "Time",
+      "status": "Active",
+      "category": "Kuiper Belt Fast Flyby Probe",
+      "location": "Kuiper Belt (~5.9 Billion Miles / 64 AU from Earth)",
+      "eventDate": "Awakened from 321-Day Hibernation in June 2026",
+      "launchDate": "January 19, 2006",
+      "coordinates": "Outer Kuiper Belt heading toward interstellar space",
+      "hardwareMassKg": 478,
+      "highlightTag": "First Close-up Visit to Pluto & Contact Binary Arrokoth",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "LORRI camera revealed nitrogen glaciers flowing inside Sputnik Planitia basin on Pluto.",
+      "description": "Fastest spacecraft at launch, New Horizons zipped past Pluto in July 2015 and Kuiper Belt object Arrokoth in January 2019.",
+      "scienceReturn": "Showed Pluto is a geologically active world with cryovolcanoes, towering water-ice mountains, and blue atmospheric hazes. Provided the first pristine look at planetesimal accretion through contact binary Arrokoth.",
+      "humanStory": "To conserve power during its decade-long cruise, New Horizons sleeps for months in hibernation. On June 23, 2026, it woke up from its longest sleep ever — 321 days — beaming back a healthy signal that took almost 9 hours to reach Earth. Its Venetia Burney Student Dust Counter continues counting cosmic dust.",
+      "nasaDataSources": [
+        {
+          "title": "NASA PDS Small Bodies: New Horizons Pluto & Kuiper Node",
+          "datasetUrl": "https://pds-smallbodies.astro.umd.edu/data_sb/missions/newhorizons/index.shtml",
+          "citationId": "PDS-NEW-HORIZONS-PLUTO"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/PIA20037/PIA20037~orig.jpg",
+      "imageCredit": "NASA / JHUAPL / SwRI (NASA ID: PIA20037)"
+    },
+    {
+      "id": "parker-solar-probe",
+      "name": "Parker Solar Probe",
+      "designation": "Living With a Star Program",
+      "region": "Deep Space",
+      "disposalReason": "Experiments",
+      "status": "Active",
+      "category": "Solar Corona Close Perihelion Orbiter",
+      "location": "Inside the Sun's Outer Corona (3.8 Million Miles from Solar Surface)",
+      "eventDate": "Active (28th Solar Pass in June 2026; Perihelion Dec 2024–2026)",
+      "launchDate": "August 12, 2018",
+      "coordinates": "Perihelion orbit around the Sun",
+      "hardwareMassKg": 685,
+      "highlightTag": "Fastest Human Object (430,000 mph / 687,000 km/h)",
+      "evidenceLevel": "CONFIRMED",
+      "evidenceNote": "SWEAP and FIELDS instruments detected magnetic switchbacks where solar magnetic field reversals fold back on themselves.",
+      "description": "Equipped with an 8-foot-diameter carbon-composite heat shield that endures temperatures exceeding 2,500°F (1,377°C) while keeping its instruments at room temperature.",
+      "scienceReturn": "First spacecraft to 'touch the Sun', diving directly through the corona to uncover the origin of the fast solar wind and resolve the coronal heating paradox (why the Sun's corona is hundreds of times hotter than its surface).",
+      "humanStory": "Parker Solar Probe holds the speed record for any human-made object at 430,000 mph. During close perihelion passes, communication with Earth is completely blacked out by solar interference; the spacecraft relies entirely on autonomous light sensors to keep its heat shield pointed precisely at the Sun to prevent melting.",
+      "nasaDataSources": [
+        {
+          "title": "NASA Space Physics Data Facility: Parker Solar Probe Data",
+          "datasetUrl": "https://spdf.gsfc.nasa.gov/pub/data/psp/",
+          "citationId": "NASA-SPDF-PSP"
+        }
+      ],
+      "imageUrl": "https://images-assets.nasa.gov/image/KSC-20180419-PH_KLS01_0009/KSC-20180419-PH_KLS01_0009~orig.jpg",
+      "imageCredit": "NASA / Kim Shiflett (NASA ID: KSC-20180419-PH_KLS01_0009)"
+    }
+  ],
+
+  "threedModels": [
+    {
+      "id": "curiosity",
+      "name": "Curiosity Rover",
+      "category": "MARS SCIENCE LABORATORY",
+      "year": "2011",
+      "destination": "Gale Crater, Mars",
+      "launch": "26 November 2011",
+      "arrival": "6 August 2012",
+      "status": "Surface exploration",
+      "modelFile": "/models/curiosity.glb",
+      "description": "A laboratory on six wheels. Curiosity investigates the rocks of Gale Crater to understand whether ancient Mars could have supported microbial life.",
+      "significance": "Its observations revealed evidence of ancient habitable environments, bringing the history of Martian water into focus.",
+      "source": "https://science.nasa.gov/mission/msl-curiosity/",
+      "credit": "NASA/JPL-Caltech",
+      "components": [
+        {
+          "id": "mast",
+          "name": "Remote sensing mast",
+          "category": "SEE / ANALYZE",
+          "description": "Curiosity's mast carries Mastcam, navigation cameras, and the ChemCam laser and telescope.",
+          "purpose": "Mastcam records the surrounding landscape. ChemCam examines elemental chemistry by studying light from laser-vaporized rock.",
+          "source": "https://science.nasa.gov/mission/msl-curiosity/science-instruments/"
+        },
+        {
+          "id": "turret",
+          "name": "Science turret",
+          "category": "CONTACT / SAMPLE",
+          "description": "At the end of the robotic arm, a cluster of tools brings scientific instruments directly to Martian rocks.",
+          "purpose": "MAHLI provides close-up images. APXS measures elemental composition. The drill acquires rock powder for the rover's onboard laboratories.",
+          "source": "https://science.nasa.gov/mission/msl-curiosity/science-instruments/"
+        },
+        {
+          "id": "arm",
+          "name": "Robotic arm",
+          "category": "REACH / INVESTIGATE",
+          "description": "The arm positions the instrument turret against selected rocks and soil.",
+          "purpose": "Controlled placement connects remote observations with hands-on measurements and sample collection.",
+          "source": "https://science.nasa.gov/mission/msl-curiosity/"
+        },
+        {
+          "id": "wheel",
+          "name": "Wheel & suspension",
+          "category": "MOVE / TRAVERSE",
+          "description": "Six wheels and an articulated suspension carry the mobile laboratory across uneven terrain.",
+          "purpose": "The mobility system lets the science team investigate multiple geological settings during a single mission.",
+          "source": "https://science.nasa.gov/mission/msl-curiosity/"
+        }
+      ]
+    },
+    {
+      "id": "apollo",
+      "name": "Apollo Lunar Module",
+      "category": "LUNAR MODULE",
+      "year": "1969",
+      "destination": "The Moon",
+      "launch": "Apollo program",
+      "arrival": "First crewed landing: 20 July 1969",
+      "status": "Historical hardware",
+      "modelFile": "/models/apollo.glb",
+      "description": "Built for a world without air. The lunar module carried astronauts from lunar orbit to the surface and returned them to the command module.",
+      "significance": "Separate descent and ascent stages made a landing on another world possible.",
+      "source": "https://www.nasa.gov/the-apollo-program/",
+      "credit": "NASA/Michael D. Carbajal"
+    },
+    {
+      "id": "voyager",
+      "name": "Voyager Probe",
+      "category": "INTERSTELLAR EXPLORER",
+      "year": "1977",
+      "destination": "Beyond the heliosphere",
+      "launch": "Voyager 1: 5 September 1977",
+      "arrival": "Interstellar crossing: August 2012",
+      "status": "Interstellar spacecraft",
+      "modelFile": "/models/voyager.glb",
+      "description": "A messenger from a smaller world. The Voyager spacecraft transformed our view of the giant planets and carried humanity's first instruments into interstellar space.",
+      "significance": "Voyager 1 crossed the heliopause in 2012.",
+      "source": "https://science.nasa.gov/mission/voyager/",
+      "credit": "NASA/Christopher R. Meaney"
+    },
+    {
+      "id": "hubble",
+      "name": "Hubble Space Telescope",
+      "category": "SPACE TELESCOPE",
+      "year": "1990",
+      "destination": "Earth Orbit (Low)",
+      "launch": "24 April 1990",
+      "arrival": "Earth orbit",
+      "status": "Observatory",
+      "modelFile": "/models/hubble.glb",
+      "description": "Hubble observes the universe from Earth orbit, revealing distant galaxies, stellar nurseries, and planetary systems.",
+      "significance": "Hubble revolutionized astronomy and cosmology, measuring an expanding universe and imaging deep-field galaxy clusters.",
+      "source": "https://science.nasa.gov/mission/hubble/",
+      "credit": "NASA/ESA"
+    },
+    {
+      "id": "perseverance",
+      "name": "Perseverance Rover",
+      "category": "MARS 2020",
+      "year": "2020",
+      "destination": "Jezero Crater, Mars",
+      "launch": "30 July 2020",
+      "arrival": "18 February 2021",
+      "status": "Active surface exploration",
+      "modelFile": "/models/perseverance.glb",
+      "description": "Heaviest and most autonomous planetary rover ever built, carrying 43 hermetically sealed titanium sample tubes for future return to Earth.",
+      "significance": "Currently collecting samples from an ancient river delta that may preserve biosignatures of Martian life.",
+      "source": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+      "credit": "NASA/JPL-Caltech"
+    },
+    {
+      "id": "ingenuity",
+      "name": "Ingenuity Helicopter",
+      "category": "MARS HELICOPTER",
+      "year": "2020",
+      "destination": "Jezero Crater, Mars",
+      "launch": "30 July 2020",
+      "arrival": "18 February 2021",
+      "status": "Grounded (Valinor Hills)",
+      "modelFile": "/models/ingenuity.glb",
+      "description": "A 1.8-kg dual-rotor drone with carbon fiber counter-rotating blades spinning at 2,400 RPM to generate lift in Mars's thin 1% atmosphere.",
+      "significance": "Proved powered flight on another planet is possible, completing 72 flights over 3 years.",
+      "source": "https://science.nasa.gov/mission/ingenuity/",
+      "credit": "NASA/JPL-Caltech"
+    }
+  ],
+
+  "missionProfiles": {
+    "curiosity": {
+      "name": "Curiosity Rover",
+      "subtitle": "Mars Science Laboratory (MSL)",
+      "description": "A car-sized rover exploring Mars since 2012, studying the planet's geology, climate, and potential for past life.",
+      "launch": "Nov 26, 2011",
+      "arrival": "Aug 6, 2012",
+      "status": "Active",
+      "goals": [
+        "Study Mars' past habitability",
+        "Analyze rocks, soil, and atmosphere",
+        "Look for signs of past microbial life"
+      ]
+    },
+    "apollo": {
+      "name": "Apollo 11 Lunar Module",
+      "subtitle": "Apollo lunar exploration",
+      "description": "The lunar module carried astronauts from lunar orbit to the Moon's surface and back to the command module.",
+      "launch": "Jul 16, 1969",
+      "arrival": "Jul 20, 1969",
+      "status": "Historic",
+      "goals": [
+        "Land astronauts on the Moon",
+        "Study and collect lunar samples",
+        "Return the crew safely to lunar orbit"
+      ]
+    },
+    "voyager": {
+      "name": "Voyager 1",
+      "subtitle": "Interstellar explorer",
+      "description": "Launched in 1977, Voyager 1 explored Jupiter and Saturn before crossing into interstellar space in 2012.",
+      "launch": "Sep 5, 1977",
+      "arrival": "Flyby mission",
+      "status": "Interstellar",
+      "goals": [
+        "Explore Jupiter and Saturn",
+        "Study planetary rings and moons",
+        "Investigate the interstellar boundary"
+      ]
+    },
+    "hubble": {
+      "name": "Hubble Space Telescope",
+      "subtitle": "An observatory above the atmosphere",
+      "description": "Hubble observes the universe from Earth orbit, revealing distant galaxies, stellar nurseries, and planetary systems.",
+      "launch": "Apr 24, 1990",
+      "arrival": "Earth orbit",
+      "status": "Observatory",
+      "goals": [
+        "Observe distant galaxies",
+        "Investigate the lives of stars",
+        "Measure the expanding universe"
+      ]
+    },
+    "insight": {
+      "name": "InSight Mars Lander",
+      "subtitle": "Interior exploration of Mars",
+      "description": "InSight studied the interior of Mars from a stationary landing site, measuring seismic activity on another world.",
+      "launch": "May 5, 2018",
+      "arrival": "Nov 26, 2018",
+      "status": "Completed",
+      "goals": [
+        "Measure Martian seismic activity",
+        "Investigate the planet's interior",
+        "Understand the formation of rocky worlds"
+      ]
+    },
+    "ingenuity": {
+      "name": "Ingenuity",
+      "subtitle": "Mars helicopter technology demonstration",
+      "description": "Ingenuity demonstrated powered, controlled flight on another planet and explored the possibilities of aerial scouting on Mars.",
+      "launch": "Jul 30, 2020",
+      "arrival": "Feb 18, 2021",
+      "status": "Completed",
+      "goals": [
+        "Demonstrate flight on another planet",
+        "Explore aerial scouting techniques",
+        "Inform future planetary aircraft"
+      ]
+    }
+  },
+
+  "stats": {
+    "byRegion": {
+      "Moon": 6,
+      "Mars": 10,
+      "Deep Space": 11
+    },
+    "byPillar": {
+      "Weight": 2,
+      "Experiments": 9,
+      "Protection": 4,
+      "Time": 12
+    },
+    "byStatus": {
+      "Active": 5,
+      "Completed": 10,
+      "Impacted": 7,
+      "Lost Contact": 3,
+      "Grounded": 1,
+      "Retired": 1
+    },
+    "byEvidenceLevel": {
+      "CONFIRMED": 26,
+      "SCIENTISTS_THINK": 1,
+      "STILL_UNKNOWN": 0
+    },
+    "totalMassKg": 17887,
+    "moonRocksReturnedKg": 382,
+    "voyager1DistanceAU": 173,
+    "ingenuityFlights": 72,
+    "marsquakesDetected": 1319,
+    "dimorphosOrbitShiftMinutes": 32
+  }
+}

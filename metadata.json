@@ -1,0 +1,6 @@
+{
+  "name": "Abandoned, Not Forgotten",
+  "description": "An interactive space documentary and scientific archive exploring 27 NASA missions left across the Solar System — Thrown Away on Purpose.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
