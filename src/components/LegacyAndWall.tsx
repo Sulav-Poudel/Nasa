@@ -41,14 +41,14 @@ export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({
       {/* H. THE SCIENTIFIC LEGACY */}
       <section className="space-y-8">
         <header className="max-w-3xl pb-6 border-b border-white/10">
-          <p className="font-mono text-xs text-slate-400">
-            The Scientific Legacy · Quantitative Evidence & Data Audit
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-slate-400">
+            Beyond the memorial · the mission legacy
           </p>
-          <h1 className="mt-2 text-3xl sm:text-5xl font-semibold text-white tracking-tight">
-            What 18,103.8 Kilograms Left Behind Bought Humanity
+          <h1 className="mt-2 font-display text-3xl sm:text-5xl text-white tracking-tight">
+            A legacy measured in discovery.
           </h1>
-          <p className="mt-3 text-base text-slate-300 leading-relaxed">
-            Every figure below is computed directly from the 27 mission records, with internal dataset discrepancies explicitly audited for verification.
+          <p className="mt-3 text-base leading-relaxed text-slate-300">
+            Twenty-seven missions left more than hardware behind. Explore what they returned, revealed, and taught us. Figures come from this archive; source notes explain where its records need a closer look.
           </p>
         </header>
 
@@ -90,13 +90,14 @@ export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 p-6 rounded-md bg-[#090D16] border border-white/10 space-y-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-lg font-semibold text-white">
-                Heaviest Documented Spacecraft Mass (kg)
-              </h2>
+              <h2 className="text-lg font-semibold text-white">Largest recorded spacecraft masses</h2>
               <span className="font-mono text-xs text-slate-400 tabular-nums">
-                Computed Sum: {COMPUTED_AUDIT.totalMassKg.toLocaleString()} kg
+                Archive total: {COMPUTED_AUDIT.totalMassKg.toLocaleString()} kg
               </span>
             </div>
+            <p className="text-xs leading-relaxed text-slate-400">
+              Mass figures use each mission&apos;s reported value; measurement methods can differ between records.
+            </p>
             <div className="space-y-3">
               {sortedByMass.map((m) => (
                 <button
@@ -189,83 +190,102 @@ export const LegacyAndWall: React.FC<LegacyAndWallProps> = ({
         </div>
 
         {/* Archive Verification Audit Table */}
-        <div className="p-6 sm:p-8 rounded-md bg-[#090D16] border border-amber-500/30 space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <details className="group rounded-xl border border-white/10 bg-[#090D16]">
+          <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-4 p-5 sm:p-7">
             <div>
               <div className="inline-flex items-center gap-2 font-mono text-xs text-amber-300">
                 <AlertTriangle className="w-4 h-4" />
-                <span>Archive Verification & Data Integrity Audit</span>
+                <span>About the archive data</span>
               </div>
               <h2 className="mt-1 text-xl font-semibold text-white">
-                Identified Dataset Discrepancies & 2026-Dated Claims
+                Some source records need context.
               </h2>
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-400">
+                Compare mission counts and read notes about claims that may need current verification.
+              </p>
             </div>
-            <span className="font-mono text-xs text-slate-400">
-              {DATASET_VERIFICATION_FLAGS.length} flagged notes
+            <span className="inline-flex items-center gap-3 font-mono text-xs text-slate-300">
+              {DATASET_VERIFICATION_FLAGS.length} notes
+              <span className="text-[#7DD3FC] group-open:hidden">Read notes ↓</span>
+              <span className="hidden text-[#7DD3FC] group-open:inline">Close notes ↑</span>
             </span>
-          </div>
+          </summary>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-mono border-collapse">
-              <thead>
-                <tr className="border-b border-white/15 text-slate-400">
-                  <th className="py-2 pr-4">Pillar</th>
-                  <th className="py-2 pr-4">Actual Missions Array</th>
-                  <th className="py-2 pr-4">stats.byPillar</th>
-                  <th className="py-2">pillars[].missionCount</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10 text-slate-200">
-                {PILLARS.map((p) => (
-                  <tr key={p.id}>
-                    <td className="py-2.5 pr-4 font-semibold" style={{ color: p.color }}>
-                      {p.title}
-                    </td>
-                    <td className="py-2.5 pr-4 tabular-nums">
-                      {COMPUTED_AUDIT.byPillar[p.id]}
-                    </td>
-                    <td className="py-2.5 pr-4 tabular-nums">
-                      {REPORTED_STATS.byPillar[p.id] ?? 0}
-                    </td>
-                    <td className="py-2.5 tabular-nums">{p.missionCount}</td>
+          <div className="space-y-5 border-t border-white/10 p-5 sm:p-7">
+            <h3 className="text-sm font-semibold text-white">Mission counts by pillar</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-left text-xs font-mono">
+                <thead>
+                  <tr className="border-b border-white/15 text-slate-400">
+                    <th className="py-2 pr-4">Pillar</th>
+                    <th className="py-2 pr-4">Mission records</th>
+                    <th className="py-2 pr-4">Source stats</th>
+                    <th className="py-2">Pillar summary</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-white/10 text-slate-200">
+                  {PILLARS.map((p) => (
+                    <tr key={p.id}>
+                      <td className="py-2.5 pr-4 font-semibold" style={{ color: p.color }}>
+                        {p.title}
+                      </td>
+                      <td className="py-2.5 pr-4 tabular-nums">
+                        {COMPUTED_AUDIT.byPillar[p.id]}
+                      </td>
+                      <td className="py-2.5 pr-4 tabular-nums">
+                        {REPORTED_STATS.byPillar[p.id] ?? 0}
+                      </td>
+                      <td className="py-2.5 tabular-nums">{p.missionCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-            {DATASET_VERIFICATION_FLAGS.map((flag) => (
-              <div
-                key={flag.id}
-                className="p-3.5 rounded bg-[#05070B] border border-white/10 space-y-1"
-              >
-                <div className="flex items-center justify-between gap-2 text-[11px] font-mono text-amber-300">
-                  <span>{flag.severity.toUpperCase()}</span>
-                  {flag.targetId && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const m = MISSIONS.find((x) => x.id === flag.targetId);
-                        if (m) onSelectMission(m);
-                      }}
-                      className="underline hover:text-white cursor-pointer"
-                    >
-                      Inspect {flag.targetId}
-                    </button>
-                  )}
-                </div>
-                <div className="text-xs font-semibold text-white">{flag.title}</div>
-                <p className="text-xs text-slate-300 leading-relaxed">{flag.detail}</p>
-              </div>
-            ))}
+            <div className="grid grid-cols-1 gap-3 pt-2 md:grid-cols-2">
+              {DATASET_VERIFICATION_FLAGS.map((flag) => {
+                const mission = flag.targetId
+                  ? MISSIONS.find((item) => item.id === flag.targetId)
+                  : undefined;
+
+                return (
+                  <article
+                    key={flag.id}
+                    className="space-y-2 rounded-lg border border-white/10 bg-[#05070B] p-4"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-amber-300">
+                      <span>
+                        {flag.severity === 'future-dated'
+                          ? 'CHECK CURRENT SOURCE'
+                          : flag.severity === 'nuance'
+                            ? 'ADDED CONTEXT'
+                            : flag.severity === 'disputed'
+                              ? 'UNRESOLVED EVIDENCE'
+                              : 'DATASET CHECK'}
+                      </span>
+                      {mission && (
+                        <button
+                          type="button"
+                          onClick={() => onSelectMission(mission)}
+                          className="underline underline-offset-2 hover:text-white"
+                        >
+                          Open {mission.name}
+                        </button>
+                      )}
+                    </div>
+                    <h4 className="text-sm font-semibold leading-snug text-white">{flag.title}</h4>
+                    <p className="text-sm leading-relaxed text-slate-300">{flag.detail}</p>
+                  </article>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </details>
       </section>
 
       <footer className="py-12 text-center space-y-4 border-t border-white/10">
         <p className="font-display text-xl sm:text-3xl text-slate-200 max-w-2xl mx-auto">
-          Somewhere on the Moon, Mars, Saturn, and beyond, our machines are still telling stories.
+          From the Moon to the edge of the solar system, these machines still have stories to tell.
         </p>
         <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
           Abandoned. Not forgotten.

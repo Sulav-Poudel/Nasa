@@ -48,7 +48,7 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
 }) => {
   const [selectedPillar, setSelectedPillar] = useState<PillarId | 'All'>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'deck' | 'grid'>('deck');
+  const [viewMode, setViewMode] = useState<'deck' | 'grid'>('grid');
   const [deckIndex, setDeckIndex] = useState(0);
   const swipeStartX = useRef<number | null>(null);
 
@@ -114,29 +114,24 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
 
   return (
     <section className="max-w-7xl mx-auto px-5 sm:px-8 py-6 sm:py-8 space-y-6">
-      {/* Compact Header + Score Strip */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-md bg-[#0F172A] border border-white/15 flex items-center justify-center text-[#7DD3FC]">
-            <Layers className="w-5 h-5" />
-          </div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-              27 Missions Deck
-            </h1>
-            <div className="flex items-center gap-3 font-mono text-xs text-slate-400">
-              <span>Swipe or tap cards</span>
-              <span aria-hidden="true">·</span>
-              <span className="text-[#6EE7B7] tabular-nums">
-                Logged {loggedMissionIds.length}/27
-              </span>
-            </div>
-          </div>
+      <div className="flex flex-wrap items-end justify-between gap-5 border-b border-white/10 pb-6">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400">
+            The mission archive · 1969 to the outer solar system
+          </p>
+          <h1 className="mt-2 font-display text-3xl sm:text-5xl text-white tracking-tight">
+            27 missions. 27 legacies.
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-400">
+            Browse the archival photographs. Open any mission to read its story, discoveries, and sources.
+          </p>
+          <p className="mt-3 font-mono text-xs text-[#6EE7B7] tabular-nums">
+            {loggedMissionIds.length} of {MISSIONS.length} discoveries logged
+          </p>
         </div>
 
-        {/* Mode Toggle + Search */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="relative w-56 sm:w-64">
+          <div className="relative w-full sm:w-64">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="search"
@@ -144,7 +139,7 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search mission or world…"
               aria-label="Filter missions"
-              className="w-full pl-9 pr-3 py-2 min-h-[40px] rounded-md bg-[#0B0F18] border border-white/15 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-white/40"
+              className="w-full rounded-lg border border-white/15 bg-[#0B0F18] py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-slate-500 focus:border-white/40 focus:outline-none"
             />
           </div>
 
@@ -159,7 +154,7 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Deck</span>
+              <span>Read</span>
             </button>
             <button
               type="button"
@@ -171,7 +166,7 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Grid</span>
+              <span>Gallery</span>
             </button>
           </div>
         </div>
@@ -189,7 +184,7 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
-          <span>All ({MISSIONS.length})</span>
+          <span>All missions ({MISSIONS.length})</span>
         </button>
 
         {PILLARS.map((pillar) => {
@@ -413,8 +408,8 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
         </div>
       ) : (
         /* ==================== COMPACT ICON GRID (ZERO PARAGRAPHS) ==================== */
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredMissions.map((mission) => {
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredMissions.map((mission, index) => {
             const Icon = PILLAR_ICONS[mission.disposalReason];
             const color = PILLAR_COLORS[mission.disposalReason];
             const isLogged = loggedMissionIds.includes(mission.id);
@@ -423,22 +418,24 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
             return (
               <div
                 key={mission.id}
-                className={`rounded-md bg-[#090D16] border transition-colors overflow-hidden flex flex-col ${
-                  isLogged ? 'border-[#34D399]/60' : 'border-white/10 hover:border-white/30'
+                className={`group rounded-xl bg-[#090D16] border transition-all duration-300 overflow-hidden flex flex-col ${
+                  isLogged ? 'border-[#34D399]/50' : 'border-white/10 hover:border-white/35 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/25'
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => onSelectMission(mission)}
-                  className="text-left flex-1 flex flex-col cursor-pointer"
+                  className="text-left flex-1 flex flex-col cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-white"
                 >
                   <NasaImage
                     src={mission.imageUrl}
                     alt={mission.name}
+                    credit={mission.imageCredit}
                     aspectClass="aspect-[16/9]"
+                    className="border-0"
                   />
 
-                  <div className="p-4 space-y-2.5 flex-1">
+                  <div className="flex flex-1 flex-col space-y-3 p-5">
                     <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
                       <span className="inline-flex items-center gap-1.5" style={{ color }}>
                         <Icon className="w-3.5 h-3.5" />
@@ -450,21 +447,26 @@ export const PillarsExplorer: React.FC<PillarsExplorerProps> = ({
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-semibold text-white leading-snug line-clamp-2">
+                    <h3 className="font-display text-xl leading-snug text-white transition-colors group-hover:text-[#F1D2A9]">
                       {mission.name}
                     </h3>
 
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <p className="line-clamp-3 text-sm leading-relaxed text-slate-400">
+                      {mission.humanStory}
+                    </p>
+
+                    <div className="mt-auto flex items-center justify-between gap-3 pt-1 text-[11px] font-mono text-slate-400">
                       <span className="inline-flex items-center gap-1">
                         <Globe className="w-3 h-3" />
                         <span>{mission.region}</span>
                       </span>
                       {flags.length > 0 && (
-                        <span className="inline-flex items-center gap-1 text-amber-300">
+                        <span className="inline-flex items-center gap-1 text-amber-300" title={flags[0].title}>
                           <AlertTriangle className="w-3 h-3" />
-                          <span>Verify</span>
+                          <span>Source note</span>
                         </span>
                       )}
+                      <span className="ml-auto tabular-nums">ARCHIVE {String(index + 1).padStart(2, '0')}</span>
                     </div>
                   </div>
                 </button>

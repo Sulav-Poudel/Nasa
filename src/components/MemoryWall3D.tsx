@@ -1076,15 +1076,15 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
         <div className="pointer-events-auto max-w-md p-4 rounded-md bg-[#080B12]/92 border border-white/15">
           <div className="flex items-center gap-2 font-mono text-[11px] text-slate-400">
             <Sparkles className="w-3.5 h-3.5 text-[#7DD3FC]" />
-            <span>3D Memory Wall · Physics Particle Field</span>
+            <span>A living memorial · {MISSIONS.length} missions</span>
             <span aria-hidden="true">·</span>
             <span className="text-[#FCD34D] tabular-nums">{litMemoryIds.length}/27 Honored</span>
           </div>
           <h1 className="mt-1 text-xl sm:text-2xl font-semibold text-white tracking-tight">
-            Lights Left Across the Dark
+            A light for every mission
           </h1>
           <p className="mt-1 text-xs text-slate-300 leading-relaxed">
-            Each floating point of light is a real spacecraft bound by spring-drift physics. Click any glowing node to pulse the field and expand its mission profile.
+            Every beacon marks a spacecraft left beyond Earth. Select one to discover its story, explore the sky, or leave a memorial light.
           </p>
         </div>
 
@@ -1093,7 +1093,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
           <div className="pointer-events-auto hidden md:flex items-center gap-2 px-3 py-2 rounded-md bg-[#080B12]/90 border border-white/10 font-mono text-[11px] text-slate-300">
             <Compass className="w-3.5 h-3.5 text-[#7DD3FC]" />
             <span>
-              {navMode === 'pan' ? 'Drag to pan · Right-drag to orbit' : 'Drag to orbit · Right-drag or WASD to pan'} · Scroll or +/− to zoom
+              {navMode === 'pan' ? 'Drag to pan · Right-drag to orbit' : '              Drag to explore · Right-drag or WASD to move'} · Scroll or +/− to zoom
             </span>
           </div>
         )}
@@ -1111,7 +1111,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
             <span aria-hidden="true">·</span>
             <span>{hoveredInfo.region}</span>
             <span aria-hidden="true">·</span>
-            <span className="text-slate-400">Click to expand</span>
+            <span className="text-slate-400">Select to read</span>
           </div>
         </div>
       )}
@@ -1128,7 +1128,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
             style={{
               transformOrigin: `${profileOrigin.x}% ${profileOrigin.y}%`,
             }}
-            className="absolute top-20 right-5 bottom-24 z-20 w-[min(430px,calc(100vw-2.5rem))] overflow-y-auto rounded-md bg-[#080C15]/96 border-2 border-white/20 shadow-2xl flex flex-col"
+            className="absolute top-20 right-5 bottom-24 z-20 w-[min(490px,calc(100vw-2.5rem))] overflow-y-auto rounded-xl border border-white/20 bg-[#080C15]/[0.98] shadow-2xl flex flex-col"
           >
             <div className="relative">
               <NasaImage
@@ -1192,21 +1192,21 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2.5 p-3 rounded-md bg-[#050810] border border-white/10 font-mono text-[11px]">
+                <div className="grid grid-cols-2 gap-2.5 p-3.5 rounded-lg bg-[#050810] border border-white/10 font-mono text-xs">
                   <div>
-                    <div className="text-slate-500">Operational Span</div>
+                    <div className="text-slate-500">Mission timeline</div>
                     <div className="text-slate-200 tabular-nums mt-0.5">
                       {selectedMission.launchDate} → {selectedMission.eventDate}
                     </div>
                   </div>
                   <div>
-                    <div className="text-slate-500">Hardware Mass</div>
+                    <div className="text-slate-500">Spacecraft mass</div>
                     <div className="text-slate-200 tabular-nums mt-0.5">
                       {selectedMission.hardwareMassKg.toLocaleString()} kg
                     </div>
                   </div>
                   <div className="col-span-2 pt-1 border-t border-white/10">
-                    <div className="text-slate-500">Destination & Coordinates</div>
+                    <div className="text-slate-500">Destination</div>
                     <div className="text-slate-200 mt-0.5">
                       {selectedMission.location} ({selectedMission.coordinates})
                     </div>
@@ -1214,15 +1214,15 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="font-mono text-[11px] text-slate-400">Scientific Discovery</div>
-                  <p className="text-xs text-slate-200 leading-relaxed">
+                  <div className="font-mono text-[11px] uppercase tracking-wider text-slate-400">What it discovered</div>
+                  <p className="text-sm text-slate-200 leading-relaxed">
                     {selectedMission.scienceReturn}
                   </p>
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="font-mono text-[11px] text-slate-400">Human Legacy</div>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <div className="font-mono text-[11px] uppercase tracking-wider text-slate-400">Why it matters</div>
+                  <p className="text-sm text-slate-300 leading-relaxed">
                     {selectedMission.humanStory}
                   </p>
                 </div>
@@ -1230,7 +1230,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
                 {selectedFlags.length > 0 && (
                   <div className="p-2.5 rounded bg-amber-500/10 border border-amber-400/30 flex items-start gap-2 text-[11px] text-amber-200">
                     <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-300" />
-                    <span>{selectedFlags[0].title}</span>
+                    <span>Archive note: {selectedFlags[0].title}. Open the full dossier for context.</span>
                   </div>
                 )}
               </div>
@@ -1249,7 +1249,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
                       }`}
                     >
                       <Flame className="w-3.5 h-3.5" />
-                      <span>{isLit ? 'Beacon Honored' : 'Light Memorial (+15 PTS)'}</span>
+                      <span>{isLit ? 'Memory honored' : 'Leave a light · +15 points'}</span>
                     </button>
                   );
                 })()}
@@ -1276,7 +1276,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
           className="mb-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-t-md bg-[#080B12] border border-b-0 border-white/15 text-[11px] font-mono text-slate-300 hover:text-white cursor-pointer"
         >
           {dockCollapsed ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-          <span>{dockCollapsed ? 'Show Memory Controls' : 'Hide Controls'}</span>
+          <span>{dockCollapsed ? 'Explore controls' : 'Hide controls'}</span>
         </button>
 
         {!dockCollapsed && (
@@ -1429,7 +1429,7 @@ export const MemoryWall3D: React.FC<MemoryWall3DProps> = ({
                   className="inline-flex items-center gap-1.5 px-2.5 py-2 min-h-[36px] rounded bg-[#0F172A] border border-[#7DD3FC]/40 text-xs font-mono text-[#7DD3FC] hover:bg-[#16223C] whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   <Waves className="w-3.5 h-3.5" />
-                  <span>Pulse</span>
+                  <span>Send a pulse</span>
                 </button>
 
                 <button

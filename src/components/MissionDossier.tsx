@@ -52,14 +52,14 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-end bg-black/75"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-0 backdrop-blur-sm sm:p-4 lg:p-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby="dossier-title"
       onClick={onClose}
     >
       <aside
-        className="relative w-full max-w-2xl h-full overflow-y-auto bg-[#080B12] border-l border-white/10 p-6 sm:p-8 text-slate-100"
+        className="relative h-full max-h-[min(94vh,960px)] w-full max-w-5xl overflow-y-auto rounded-none border border-white/10 bg-[#080B12] p-5 text-slate-100 shadow-2xl sm:rounded-2xl sm:p-8 lg:p-10"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4 pb-5 border-b border-white/10">
@@ -75,7 +75,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
             </div>
             <h2
               id="dossier-title"
-              className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-white"
+              className="mt-2 font-display text-3xl leading-tight tracking-tight text-white sm:text-4xl"
             >
               {mission.name}
             </h2>
@@ -140,7 +140,8 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
               src={mission.imageUrl}
               alt={mission.name}
               credit={mission.imageCredit}
-              className="rounded-md"
+              aspectClass="aspect-[16/9] sm:aspect-[2/1]"
+              className="rounded-xl"
             />
           )}
         </div>
@@ -184,14 +185,14 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
           </div>
         )}
 
-        <div className="mt-6 space-y-6 text-[15px] leading-relaxed text-slate-300">
+        <div className="mt-7 space-y-8 text-base leading-7 text-slate-300 sm:text-[17px] sm:leading-8">
           <section>
-            <h3 className="text-xs font-mono text-slate-400 mb-1.5">Hardware Overview</h3>
+            <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-400">The mission</h3>
             <p>{mission.description}</p>
           </section>
 
           <section>
-            <h3 className="text-xs font-mono text-slate-400 mb-1.5">
+            <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-400">
               Scientific Discovery · {mission.evidenceLevel}
             </h3>
             <p className="text-slate-200">{mission.scienceReturn}</p>
@@ -199,7 +200,7 @@ export const MissionDossier: React.FC<MissionDossierProps> = ({
           </section>
 
           <section>
-            <h3 className="text-xs font-mono text-slate-400 mb-1.5">Human Story</h3>
+            <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.14em] text-slate-400">Why it matters</h3>
             <p className="text-slate-200">{mission.humanStory}</p>
           </section>
 
