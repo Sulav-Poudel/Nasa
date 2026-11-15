@@ -1,32 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getMissionById } from './data/archive';
 import type { AppView, MissionRecord } from './types/archive';
 import { LastTransmissionIntro } from './components/LastTransmissionIntro';
 import { SolarSystemExplorer } from './components/SolarSystemExplorer';
 import { PillarsExplorer } from './components/PillarsExplorer';
-import { StoryMode } from './components/StoryMode';
-import { SpacecraftLab } from './components/SpacecraftLab';
+import { GameAdventureHub, type PlayerProgress } from './components/GameAdventureHub';
 import { EthicalSimulator } from './components/EthicalSimulator';
 import { LegacyAndWall } from './components/LegacyAndWall';
 import { MissionDossier } from './components/MissionDossier';
 import { MissionControlDrawer } from './components/MissionControlDrawer';
 import { spaceAudio } from './utils/audio';
 
+const STORAGE_KEY = 'anf_game_progress_v1';
+
+const DEFAULT_PROGRESS: PlayerProgress = {
+  completedIds: [],
+  scienceScore: 0,
+  unlockedDiscoveries: [],
+};
+
+function loadProgress(): PlayerProgress {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return DEFAULT_PROGRESS;
+    const parsed = JSON.parse(raw) as Partial<PlayerProgress>;
+    return {
+      completedIds: Array.isArray(parsed.completedIds) ? parsed.completedIds : [],
+      scienceScore: typeof parsed.scienceScore === 'number' ? parsed.scienceScore : 0,
+      unlockedDiscoveries: Array.isArray(parsed.unlockedDiscoveries)
+        ? parsed.unlockedDiscoveries
+        : [],
+    };
+  } catch {
+    return DEFAULT_PROGRESS;
+  }
+}
+
 const NAV_ITEMS: { id: AppView; label: string }[] = [
-  { id: 'universe', label: 'Universe' },
-  { id: 'pillars', label: 'Pillars' },
-  { id: 'stories', label: 'Stories' },
-  { id: 'lab', label: '3D Lab' },
-  { id: 'simulator', label: 'Decisions' },
-  { id: 'legacy', label: 'Legacy & Wall' },
+  { id: 'adventures', label: 'Adventures' },
+  { id: 'universe', label: 'Star Map' },
+  { id: 'pillars', label: '27 Missions' },
+  { id: 'simulator', label: 'Director Trials' },
+  { id: 'legacy', label: 'Memory Wall' },
 ];
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
-  const [view, setView] = useState<AppView>('universe');
+  const [view, setView] = useState<AppView>('adventures');
   const [activeMission, setActiveMission] = useState<MissionRecord | null>(null);
   const [missionControlOpen, setMissionControlOpen] = useState(false);
   const [missionControlPrompt, setMissionControlPrompt] = useState<string | undefined>(undefined);
+  const [progress, setProgress] = useState<PlayerProgress>(loadProgress);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    } catch {
+      // Ignore storage quota errors
+    }
+  }, [progress]);
 
   useEffect(() => {
     const syncFromHash = () => {
@@ -69,15 +101,40 @@ export default function App() {
     setMissionControlOpen(true);
   };
 
+  const handleRecordCompletion = useCallback(
+    (adventureId: string, earnedPoints: number, discoveries: string[]) => {
+      setProgress((prev) => {
+        const alreadyDone = prev.completedIds.includes(adventureId);
+        const completedIds = alreadyDone
+          ? prev.completedIds
+          : [...prev.completedIds, adventureId];
+        const mergedDiscoveries = Array.from(
+          new Set([...prev.unlockedDiscoveries, ...discoveries]),
+        );
+        return {
+          completedIds,
+          scienceScore: prev.scienceScore + (alreadyDone ? Math.round(earnedPoints * 0.25) : earnedPoints),
+          unlockedDiscoveries: mergedDiscoveries,
+        };
+      });
+    },
+    [],
+  );
+
+  const handleResetProgress = useCallback(() => {
+    setProgress(DEFAULT_PROGRESS);
+    spaceAudio.playTelemetryPing(392);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#05070B] text-slate-100 flex flex-col">
       {showIntro && <LastTransmissionIntro onEnter={() => setShowIntro(false)} />}
 
       {/* 3-Zone Top Bar Contract */}
-      <header className="sticky top-0 z-40 h-16 bg-[#05070B]/95 border-b border-white/10 px-5 sm:px-8 flex items-center justify-between gap-8">
+      <header className="sticky top-0 z-40 h-16 bg-[#05070B]/95 border-b border-white/10 px-5 sm:px-8 flex items-center justify-between gap-6">
         <button
           type="button"
-          onClick={() => navigate('universe')}
+          onClick={() => navigate('adventures')}
           className="font-display text-lg font-semibold tracking-tight text-white whitespace-nowrap shrink-0 cursor-pointer hover:text-slate-200 transition-colors"
         >
           Abandoned, Not Forgotten
@@ -107,6 +164,10 @@ export default function App() {
         </nav>
 
         <div className="flex items-center gap-3 shrink-0">
+          <div className="hidden sm:block text-right font-mono text-[11px] leading-tight pr-1">
+            <div className="text-slate-400">SCORE</div>
+            <div className="text-[#FCD34D] font-bold tabular-nums">{progress.scienceScore} PTS</div>
+          </div>
           <button
             type="button"
             onClick={() => handleAskMissionControl(undefined)}
@@ -142,15 +203,22 @@ export default function App() {
       </nav>
 
       <main className="flex-1">
+        {view === 'adventures' && (
+          <GameAdventureHub
+            progress={progress}
+            onRecordCompletion={handleRecordCompletion}
+            onResetProgress={handleResetProgress}
+            onSelectMission={openMission}
+            onBackToUniverse={() => navigate('universe')}
+          />
+        )}
         {view === 'universe' && <SolarSystemExplorer onSelectMission={openMission} />}
         {view === 'pillars' && <PillarsExplorer onSelectMission={openMission} />}
-        {view === 'stories' && <StoryMode onSelectMission={openMission} />}
-        {view === 'lab' && <SpacecraftLab />}
         {view === 'simulator' && <EthicalSimulator onSelectMission={openMission} />}
         {view === 'legacy' && <LegacyAndWall onSelectMission={openMission} />}
       </main>
 
-      {view !== 'universe' && view !== 'lab' && (
+      {view !== 'universe' && view !== 'adventures' && (
         <footer className="border-t border-white/10 px-5 sm:px-8 py-6 text-xs font-mono text-slate-500 flex flex-wrap items-center justify-between gap-4">
           <span>Abandoned, Not Forgotten · NASA Space Apps Challenge 2026</span>
           <div className="flex items-center gap-5">

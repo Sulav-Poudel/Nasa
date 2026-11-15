@@ -301,11 +301,11 @@ export const LastTransmissionIntro: React.FC<LastTransmissionIntroProps> = ({ on
               }}
               className="inline-flex items-center gap-2.5 px-6 py-3 min-h-[44px] rounded-md bg-white text-[#05070B] text-sm font-semibold hover:bg-slate-200 transition-colors cursor-pointer"
             >
-              <span>Enter the Archive</span>
+              <span>Start Mission Adventures</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <span className="text-xs font-mono text-slate-400">
-              27 Mission Records · 6 Interactive 3D Spacecraft · NASA PDS Sources
+              8 Playable Mission Stories · Interactive 3D Spacecraft · 27 NASA PDS Records
             </span>
           </div>
         </div>

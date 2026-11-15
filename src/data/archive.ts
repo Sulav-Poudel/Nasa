@@ -95,10 +95,10 @@ export const DATASET_VERIFICATION_FLAGS: VerificationFlag[] = [
   {
     id: 'audit-3d-gaps',
     severity: 'discrepancy',
-    scope: '3d-lab',
+    scope: '3d-models',
     title: '3D Model Assets Not Hosted Locally & Profile Index Mismatch',
     detail:
-      'threedModels references /models/*.glb paths not present on disk and includes Hubble Space Telescope (omitted from missions). missionProfiles includes InSight but omits Perseverance. The 3D Lab uses procedural PBR Three.js assemblies with NASA imagery fallback.',
+      'threedModels references /models/*.glb paths not present on disk and includes Hubble Space Telescope (omitted from missions). missionProfiles includes InSight but omits Perseverance. Interactive Mission Scenarios and Dossiers render procedural PBR Three.js spacecraft assemblies directly.',
   },
   {
     id: 'flag-surveyor-3',

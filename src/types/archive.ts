@@ -113,16 +113,15 @@ export interface RawArchiveDataset {
 export interface VerificationFlag {
   id: string;
   severity: 'discrepancy' | 'future-dated' | 'disputed' | 'nuance';
-  scope: 'dataset' | 'mission' | '3d-lab';
+  scope: 'dataset' | 'mission' | '3d-models';
   targetId?: string;
   title: string;
   detail: string;
 }
 
 export type AppView =
+  | 'adventures'
   | 'universe'
   | 'pillars'
-  | 'stories'
-  | 'lab'
   | 'simulator'
   | 'legacy';
